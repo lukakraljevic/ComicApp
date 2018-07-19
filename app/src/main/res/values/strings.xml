@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ComicsApp</string>
+    <string name="error_text">An error occurred!</string>
+    <string name="episode_name">Episode name: %1$s</string>
+</resources>
