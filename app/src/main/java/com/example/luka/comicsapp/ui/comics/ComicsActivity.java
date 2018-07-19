@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,8 +31,12 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
     @BindView(R.id.comic_list_view)
     RecyclerView recyclerView;
 
+    @BindView(R.id.my_toolbar)
+    Toolbar toolbar;
+
     @BindString(R.string.error_text)
     String errorText;
+
 
     private ComicAdapter adapter;
 
@@ -63,6 +68,8 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
         });
 
         recyclerView.setAdapter(adapter);
+
+        setSupportActionBar(toolbar);
     }
 
     private void startComicDetailsActivity(Comic comic) {
