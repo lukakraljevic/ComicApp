@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class ComicsActivity extends AppCompatActivity implements ComicContract.View {
+public class ComicsActivity extends AppCompatActivity implements ComicContract.View, ComicAdapter.ItemClickListener {
 
     private ComicContract.Presenter presenter;
     private List<Comic> comicList;
@@ -58,18 +58,22 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
         ButterKnife.bind(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new ComicAdapter(this);
-        adapter.setClickListener(new ComicAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                final Comic comic = comicList.get(position);
-                startComicDetailsActivity(comic);
-            }
-        });
-
-        recyclerView.setAdapter(adapter);
+        initAdapter();
 
         setSupportActionBar(toolbar);
+    }
+
+    private void initAdapter() {
+        adapter = new ComicAdapter(this);
+        adapter.setClickListener(this);
+
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        final Comic comic = comicList.get(position);
+        startComicDetailsActivity(comic);
     }
 
     private void startComicDetailsActivity(Comic comic) {
@@ -95,5 +99,6 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
     public void alertErrorMessage() {
         Toast.makeText(getApplicationContext(), errorText, Toast.LENGTH_SHORT).show();
     }
+
 
 }

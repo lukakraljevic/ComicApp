@@ -10,20 +10,20 @@
         android:id="@+id/comic_list_thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="@dimen/listItemComponentMargin"
+        android:layout_marginBottom="@dimen/listItemComponentMargin"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/comic_list_airdate"
+        android:id="@+id/comic_list_air_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorGray"
         android:textAlignment="center"
-        android:textSize="14sp"
-        android:layout_marginTop="5dp"
+        android:textSize="@dimen/airDateTextSize"
+        android:layout_marginTop="@dimen/listItemComponentMargin"
         app:layout_constraintLeft_toLeftOf="@id/comic_list_thumbnail"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -34,9 +34,9 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorBlack"
         android:textAlignment="center"
-        android:textSize="20sp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@id/comic_list_airdate"
+        android:textSize="@dimen/titleTextSize"
+        android:layout_marginBottom="@dimen/listItemComponentMargin"
+        app:layout_constraintTop_toTopOf="@id/comic_list_air_date"
         app:layout_constraintLeft_toLeftOf="@id/comic_list_thumbnail"
         />
 </android.support.constraint.ConstraintLayout>
