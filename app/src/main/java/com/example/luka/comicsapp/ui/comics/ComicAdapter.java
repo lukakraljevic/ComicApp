@@ -70,6 +70,10 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> 
         this.itemClickListener = itemClickListener;
     }
 
+    public Comic get(int position) {
+        return dataSource.get(position);
+    }
+
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
