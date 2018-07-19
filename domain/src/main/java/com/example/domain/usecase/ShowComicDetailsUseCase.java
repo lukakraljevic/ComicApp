@@ -14,11 +14,6 @@ public class ShowComicDetailsUseCase implements UseCaseWithParam<String, ComicDe
 
     @Override
     public void execute(String param, RequestCallback<ComicDetails> callback) {
-
-        try {
-            comicRepository.getComicDetails(param, callback);
-        } catch (Throwable t) {
-            callback.onError(t);
-        }
+        comicRepository.getComicDetails(param, callback);
     }
 }

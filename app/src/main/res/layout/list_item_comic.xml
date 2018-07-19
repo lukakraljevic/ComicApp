@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+    todo clean up the design, apply material
     <ImageView
         android:id="@+id/comic_list_thumbnail"
         android:layout_width="wrap_content"

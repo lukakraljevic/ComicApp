@@ -17,10 +17,6 @@ public class GetComicsUseCase implements UseCase<List<Comic>> {
 
     @Override
     public void execute(final RequestCallback<List<Comic>> callback) {
-        try {
-            comicRepository.fetchTrending(callback);
-        } catch (final Throwable t) {
-            callback.onError(t);
-        }
+        comicRepository.fetchTrending(callback);
     }
 }

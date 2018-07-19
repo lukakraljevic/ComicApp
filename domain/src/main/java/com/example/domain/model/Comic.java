@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class Comic {
 
-    public int id;
+    public final int id;
 
-    public String apiDetailUrl;
+    public final String apiDetailUrl;
 
-    public Date airDate;
+    public final Date airDate;
 
-    public String description;
+    public final String description;
 
-    public String name;
+    public final String name;
 
-    public String thumbnailUrl;
+    public final String thumbnailUrl;
 
     public Comic(int id, String apiDetailUrl, Date airDate, String description, String name, String thumbnailUrl) {
         this.id = id;
