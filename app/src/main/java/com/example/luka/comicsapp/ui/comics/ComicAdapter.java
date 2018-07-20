@@ -6,19 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
 import com.example.luka.comicsapp.ui.utils.ImageLoader;
-import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
+import java.util.Locale;
 
 public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> {
 
@@ -47,13 +45,14 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.list_item_comic, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, itemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Comic comic = dataSource.get(position);
         holder.titleTextView.setText(comic.name);
+        holder.airDateTextView.setText(new SimpleDateFormat("dd.MM.yyyy.", Locale.getDefault()).format(comic.airDate));
         ImageLoader.loadImage(comic.thumbnailUrl, holder.thumbnailImageView, R.mipmap.ic_launcher);
     }
 
@@ -71,20 +70,28 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> 
         this.itemClickListener = itemClickListener;
     }
 
+    public Comic get(int position) {
+        return dataSource.get(position);
+    }
+
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView titleTextView;
+        TextView airDateTextView;
         ImageView thumbnailImageView;
+        ItemClickListener itemClickListener;
 
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, ItemClickListener itemClickListener) {
             super(itemView);
+            this.itemClickListener = itemClickListener;
             titleTextView = itemView.findViewById(R.id.comic_list_title);
+            airDateTextView = itemView.findViewById(R.id.comic_list_airdate);
             thumbnailImageView = itemView.findViewById(R.id.comic_list_thumbnail);
             itemView.setOnClickListener(this);
         }

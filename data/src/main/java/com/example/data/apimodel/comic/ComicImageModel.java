@@ -2,18 +2,21 @@ package com.example.data.apimodel.comic;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ComicImageModel {
+public final class ComicImageModel {
 
     @SerializedName("meidum_url")
-    public String mediumUrl;
-
+    public final String mediumUrl;
     @SerializedName("thumb_url")
-    public String thumbUrl;
-
+    public final String thumbUrl;
     @SerializedName("screen_url")
-    public String screenUrl;
-
+    public final String screenUrl;
     @SerializedName("small_url")
-    public String smallUrl;
+    public final String smallUrl;
 
+    public ComicImageModel(String mediumUrl, String thumbUrl, String screenUrl, String smallUrl) {
+        this.mediumUrl = mediumUrl;
+        this.thumbUrl = thumbUrl;
+        this.screenUrl = screenUrl;
+        this.smallUrl = smallUrl;
+    }
 }

@@ -4,21 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public class ComicApiModel {
+public final class ComicApiModel {
 
-    public int id;
-
+    public final int id;
     @SerializedName("api_detail_url")
-    public String apiDetailUrl;
-
+    public final String apiDetailUrl;
     @SerializedName("air_date")
-    public Date airDate;
-
-    public String description;
-
-    public ComicImageModel image;
-
-    public String name;
+    public final Date airDate;
+    public final String description;
+    public final ComicImageModel image;
+    public final String name;
 
     public ComicApiModel(int id, String apiDetailUrl, Date airDate, String description, ComicImageModel image, String name) {
         this.id = id;
