@@ -4,7 +4,7 @@ import com.example.domain.model.Comic;
 
 import java.util.List;
 
-public class ComicViewModel {
+public final class ComicViewModel {
 
     public final List<Comic> comicList;
 

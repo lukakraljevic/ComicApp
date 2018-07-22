@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="nameTextSize">30sp</dimen>
-    <dimen name="elevation">4dp</dimen>
-    <dimen name="listItemComponentMargin">5dp</dimen>
-    <dimen name="airDateTextSize">14sp</dimen>
-    <dimen name="titleTextSize">20sp</dimen>
+    <dimen name="nameTextSize">24sp</dimen>
+    <dimen name="layoutMargin">4dp</dimen>
+    <dimen name="listItemComponentMargin">8dp</dimen>
+    <dimen name="airDateTextSize">16sp</dimen>
+    <dimen name="titleTextSize">24sp</dimen>
+    <dimen name="smallTextSize">16sp</dimen>
+    <dimen name="detailsMargin">12dp</dimen>
+    <dimen name="dimenZero">0dp</dimen>
+    <dimen name="imageDimen">200dp</dimen>
+    <dimen name="cardViewHeight">75dp</dimen>
 </resources>

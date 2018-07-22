@@ -11,12 +11,11 @@ import android.widget.TextView;
 
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
+import com.example.luka.comicsapp.ui.ItemClickListener;
 import com.example.luka.comicsapp.ui.utils.ImageLoader;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> {
 
@@ -35,8 +34,8 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    public void addData(Comic c) {
-        this.dataSource.add(c);
+    public void addData(List<Comic> data) {
+        this.dataSource.addAll(data);
         notifyDataSetChanged();
     }
 
@@ -52,7 +51,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Comic comic = dataSource.get(position);
         holder.titleTextView.setText(comic.name);
-        holder.airDateTextView.setText(new SimpleDateFormat("dd.MM.yyyy.", Locale.getDefault()).format(comic.airDate));
+        holder.airDateTextView.setText(comic.airDate);
         ImageLoader.loadImage(comic.thumbnailUrl, holder.thumbnailImageView, R.mipmap.ic_launcher);
     }
 
@@ -74,11 +73,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> 
         return dataSource.get(position);
     }
 
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
-
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView titleTextView;
@@ -91,7 +85,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> 
             super(itemView);
             this.itemClickListener = itemClickListener;
             titleTextView = itemView.findViewById(R.id.comic_list_title);
-            airDateTextView = itemView.findViewById(R.id.comic_list_airdate);
+            airDateTextView = itemView.findViewById(R.id.comic_list_air_date);
             thumbnailImageView = itemView.findViewById(R.id.comic_list_thumbnail);
             itemView.setOnClickListener(this);
         }

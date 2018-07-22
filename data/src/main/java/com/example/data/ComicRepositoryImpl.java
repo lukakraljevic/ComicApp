@@ -36,8 +36,8 @@ public class ComicRepositoryImpl implements ComicRepository {
     }
 
     @Override
-    public void fetchTrending(final RequestCallback<List<Comic>> callback) {
-        comicService.getComics(API_KEY, FORMAT, LIMIT).enqueue(new Callback<ComicResponse>() {
+    public void fetchTrending(final int offset, final RequestCallback<List<Comic>> callback) {
+        comicService.getComics(API_KEY, FORMAT, LIMIT, offset*LIMIT).enqueue(new Callback<ComicResponse>() {
             @Override
             public void onResponse(Call<ComicResponse> call, Response<ComicResponse> response) {
                 final ComicResponse body = response.body();

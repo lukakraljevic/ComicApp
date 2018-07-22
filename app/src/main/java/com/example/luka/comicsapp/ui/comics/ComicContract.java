@@ -12,6 +12,6 @@ public interface ComicContract {
 
     interface Presenter {
 
-        void getComics();
+        void getComics(int offset);
     }
 }

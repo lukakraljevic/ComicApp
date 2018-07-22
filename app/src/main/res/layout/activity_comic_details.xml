@@ -1,25 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/detailsMargin">
 
     <ImageView
         android:id="@+id/comic_details_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/imageDimen"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@mipmap/ic_launcher" />
+
+
+    <TextView
+        android:id="@+id/episode_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/detailsMargin"
+        android:layout_marginTop="@dimen/detailsMargin"
+        android:fontFamily="sans-serif"
+        android:textSize="@dimen/smallTextSize"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/comic_details_image" />
+
+    <TextView
+        android:id="@+id/comic_details_date_last_updated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/detailsMargin"
+        android:layout_marginStart="@dimen/detailsMargin"
+        android:layout_marginTop="@dimen/detailsMargin"
+        android:fontFamily="sans-serif"
+        android:textSize="@dimen/smallTextSize"
+        app:layout_constraintBottom_toBottomOf="@id/episode_number"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/episode_number" />
+
 
     <TextView
         android:id="@+id/comic_details_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/detailsMargin"
+        android:layout_marginTop="@dimen/detailsMargin"
         android:fontFamily="sans-serif"
-        android:textSize="@dimen/nameTextSize" />
+        android:textSize="@dimen/nameTextSize"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/episode_number" />
 
 
     <TextView
         android:id="@+id/comic_details_desc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/comic_details_name" />
+
+
+    <TextView
+        android:id="@+id/comic_details_characters_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detailsMargin"
+        android:textSize="@dimen/titleTextSize"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/comic_details_desc" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comic_characters_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/detailsMargin"
+        app:layout_constraintTop_toBottomOf="@id/comic_details_characters_label" />
+
+
 </android.support.constraint.ConstraintLayout>
