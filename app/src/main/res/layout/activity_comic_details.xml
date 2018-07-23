@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/detailsMargin"
             android:textSize="@dimen/titleTextSize"
+            android:text="@string/characters"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/comic_details_description" />
 

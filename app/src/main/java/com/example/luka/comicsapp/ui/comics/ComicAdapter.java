@@ -1,6 +1,5 @@
 package com.example.luka.comicsapp.ui.comics;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
-import com.example.luka.comicsapp.ui.ItemClickListener;
+import com.example.luka.comicsapp.ui.listener.ComicClickListener;
 import com.example.luka.comicsapp.ui.utils.ImageLoader;
 
 import java.util.ArrayList;
@@ -19,13 +18,8 @@ import java.util.List;
 
 public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> {
 
-    private Context context;
-    private List<Comic> dataSource = new ArrayList<>();
-    private ItemClickListener itemClickListener;
-
-    public ComicAdapter(Context context) {
-        this.context = context;
-    }
+    private final List<Comic> dataSource = new ArrayList<>();
+    private ComicClickListener itemClickListener;
 
     public void setData(List<Comic> data) {
         this.dataSource.clear();
@@ -33,22 +27,26 @@ public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    public void addData(List<Comic> data) {
+    public void addData(List<Comic> data, int page) {
+        if (page == 1) {
+            this.dataSource.clear();
+        }
+
         this.dataSource.addAll(data);
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_comic, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_comic, parent, false);
         return new ViewHolder(view, itemClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Comic comic = dataSource.get(position);
+        holder.setData(comic);
         holder.titleTextView.setText(comic.name);
         holder.airDateTextView.setText(comic.airDate);
         ImageLoader.loadImage(comic.thumbnailUrl, holder.thumbnailImageView, R.mipmap.ic_launcher);
@@ -64,12 +62,8 @@ public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHo
         return dataSource.size();
     }
 
-    void setClickListener(ItemClickListener itemClickListener) {
+    void setClickListener(ComicClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
-    }
-
-    public Comic get(int position) {
-        return dataSource.get(position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -77,10 +71,10 @@ public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHo
         TextView titleTextView;
         TextView airDateTextView;
         ImageView thumbnailImageView;
-        ItemClickListener itemClickListener;
+        ComicClickListener itemClickListener;
+        private Comic comic;
 
-
-        public ViewHolder(View itemView, ItemClickListener itemClickListener) {
+        public ViewHolder(View itemView, ComicClickListener itemClickListener) {
             super(itemView);
             this.itemClickListener = itemClickListener;
             titleTextView = itemView.findViewById(R.id.comic_list_title);
@@ -89,10 +83,14 @@ public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHo
             itemView.setOnClickListener(this);
         }
 
+        private void setData(Comic comic){
+            this.comic = comic;
+        }
+
         @Override
         public void onClick(View view) {
             if (itemClickListener != null)
-                itemClickListener.onItemClick(view, getAdapterPosition());
+                itemClickListener.onComicClick(comic);
         }
     }
 }

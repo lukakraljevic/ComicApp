@@ -3,9 +3,11 @@ package com.example.luka.comicsapp.ui.comicdetails;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.SpannableString;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,23 +61,7 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
         initPresenter();
 
         initUi();
-        getExtras();
         displayData();
-
-        presenter.getComicDetails(presenter.getComic().apiDetailUrl);
-    }
-
-    private void displayData() {
-        Comic comic = presenter.getComic();
-
-        nameText.setText(String.format(Locale.getDefault(), episodeName, comic.episodeName));
-        SpannableString spannableDescription = new SpannableString(Html.fromHtml(comic.description));
-        descriptionText.setText(spannableDescription);
-
-        episodeNumber.setText(String.format(Locale.getDefault(), episodeNumberText, comic.episodeNumber));
-        dateLastUpdated.setText(comic.dateLastUpdated);
-
-        ImageLoader.loadImage(comic.thumbnailUrl, headerImageView, R.mipmap.ic_launcher);
     }
 
     private void initUi() {
@@ -87,15 +73,28 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
         recyclerView.setLayoutManager(manager);
     }
 
-    private void initAdapter() {
-        adapter = new ComicDetailsAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    private void displayData() {
+        //the only place i'm using intent info from ComicActivity is here
+        //no need to send it to presenter
+        Comic comic = (Comic) getIntent().getSerializableExtra(ComicsActivity.KEY_DETAILS);
+
+        nameText.setText(String.format(Locale.getDefault(), episodeName, comic.episodeName));
+        SpannableString spannableDescription = new SpannableString(Html.fromHtml(comic.description));
+        descriptionText.setText(spannableDescription);
+
+        episodeNumber.setText(String.format(Locale.getDefault(), episodeNumberText, comic.episodeNumber));
+        dateLastUpdated.setText(comic.dateLastUpdated);
+
+        ImageLoader.loadImage(comic.thumbnailUrl, headerImageView, R.mipmap.ic_launcher);
+        presenter.getComicDetails(comic.apiDetailUrl);
     }
 
-    private void getExtras() {
-        Comic comic = (Comic) getIntent().getSerializableExtra(ComicsActivity.KEY_DETAILS);
-        presenter.setComic(comic);
+    private void initAdapter() {
+        adapter = new ComicDetailsAdapter();
+        recyclerView.setAdapter(adapter);
+
+        final LinearSnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
     }
 
     private void initPresenter() {
@@ -109,12 +108,13 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
 
     @Override
     public void showComicDetails(ComicDetailsViewModel comicDetails) {
-        if (comicDetails.characters.size() != 0) {
-            charactersLabel.setText(characters);
+        if (comicDetails.characters.isEmpty()) {
+            charactersLabel.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
         }
 
         adapter.setData(comicDetails.characters);
-        ImageLoader.loadImage(presenter.getComic().screenUrl, headerImageView, R.mipmap.ic_launcher);
+        ImageLoader.loadImage(comicDetails.imageUrl, headerImageView, R.mipmap.ic_launcher);
     }
 
 }

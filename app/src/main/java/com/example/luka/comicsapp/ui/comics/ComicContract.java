@@ -5,21 +5,13 @@ public interface ComicContract {
 
     interface View {
 
-        void renderComics(ComicViewModel comics);
-
-        void renderComicsRefresh(ComicViewModel param);
+        void renderComics(ComicViewModel comics, int page);
 
         void alertErrorMessage();
     }
 
     interface Presenter {
 
-        void getComics();
-
-        void setLoading(boolean b);
-
-        void performRefresh();
-
-        boolean getLoading();
+        void getComics(boolean isRefreshing);
     }
 }

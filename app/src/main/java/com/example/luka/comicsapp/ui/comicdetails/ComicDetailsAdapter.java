@@ -1,6 +1,5 @@
 package com.example.luka.comicsapp.ui.comicdetails;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
@@ -18,12 +17,7 @@ import java.util.regex.Pattern;
 
 public final class ComicDetailsAdapter extends RecyclerView.Adapter<ComicDetailsAdapter.ViewHolder> {
 
-    private Context context;
-    private List<ComicCharacter> dataSource = new ArrayList<>();
-
-    public ComicDetailsAdapter(Context context) {
-        this.context = context;
-    }
+    private final List<ComicCharacter> dataSource = new ArrayList<>();
 
     public void setData(List<ComicCharacter> data) {
         this.dataSource.clear();
@@ -31,17 +25,17 @@ public final class ComicDetailsAdapter extends RecyclerView.Adapter<ComicDetails
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @Override
     public ComicDetailsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_character, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_character,
+                parent, false);
         return new ComicDetailsAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ComicCharacter comicCharacter = dataSource.get(position);
+        final ComicCharacter comicCharacter = dataSource.get(position);
         holder.nameTextView.setText(comicCharacter.name);
 
         Linkify.addLinks(holder.detailsTextView, Pattern.compile(""),
@@ -52,11 +46,6 @@ public final class ComicDetailsAdapter extends RecyclerView.Adapter<ComicDetails
     public int getItemCount() {
         return dataSource.size();
     }
-
-    public ComicCharacter get(int position) {
-        return dataSource.get(position);
-    }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
