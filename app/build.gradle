@@ -33,22 +33,22 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$supportLib"
     implementation "com.android.support:design:$supportLib"
     implementation "com.android.support:cardview-v7:$supportLib"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation "com.android.support.constraint:constraint-layout:$constraintLib"
 
     //networking
     implementation "com.squareup.retrofit2:retrofit:$networkingLib"
     implementation "com.squareup.retrofit2:converter-gson:$networkingLib"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLib"
 
     //image loading
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "com.squareup.picasso:picasso:$picassoLib"
 
     //butterknife
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation "com.jakewharton:butterknife:$butterknifeLib"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeLib"
 
     //test
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation "junit:junit:$junitLib"
+    androidTestImplementation "com.android.support.test:runner:$testRunnerLib"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoLib"
 }

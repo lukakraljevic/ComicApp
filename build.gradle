@@ -16,6 +16,13 @@ buildscript {
 
     ext.supportLib = "27.1.1"
     ext.networkingLib = "2.4.0"
+    ext.constraintLib = "1.1.2"
+    ext.okhttpLib = "3.11.0"
+    ext.picassoLib = "2.71828"
+    ext.butterknifeLib = "8.8.1"
+    ext.junitLib = "4.12"
+    ext.testRunnerLib = "1.0.2"
+    ext.espressoLib = "3.0.2"
 }
 
 allprojects {

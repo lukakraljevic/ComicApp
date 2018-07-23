@@ -12,13 +12,13 @@ public final class ComicDetailsApiModel {
     public final ComicImageModel image;
     public final String name;
     @SerializedName("character_credits")
-    public final List<ComicCharacterApiModel> charachters;
+    public final List<ComicCharacterApiModel> characters;
 
-    public ComicDetailsApiModel(int id, String description, ComicImageModel image, String name, List<ComicCharacterApiModel> charachters) {
+    public ComicDetailsApiModel(int id, String description, ComicImageModel image, String name, List<ComicCharacterApiModel> characters) {
         this.id = id;
         this.description = description;
         this.image = image;
         this.name = name;
-        this.charachters = charachters;
+        this.characters = characters;
     }
 }

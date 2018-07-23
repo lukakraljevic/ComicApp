@@ -8,18 +8,22 @@ import com.example.domain.model.ComicDetails;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComicDetailsMapper {
+public final class ComicDetailsMapper {
 
     public ComicDetails mapComicDetailsToModel(ComicDetailsApiModel apiModel) {
 
-        List<ComicCharacter> characters = new ArrayList<>();
-        for (ComicCharacterApiModel comicCharacterApiModel : apiModel.charachters) {
-            characters.add(new ComicCharacter(comicCharacterApiModel.id, comicCharacterApiModel.name,
-                    comicCharacterApiModel.siteDetailUrl));
+        final List<ComicCharacter> characters = new ArrayList<>();
+        for (ComicCharacterApiModel comicCharacterApiModel : apiModel.characters) {
+            characters.add(createComicCharacter(comicCharacterApiModel));
         }
 
         return new ComicDetails(apiModel.id, apiModel.description, apiModel.image.screenUrl,
                 apiModel.name, characters);
+    }
+
+    private ComicCharacter createComicCharacter(ComicCharacterApiModel comicCharacterApiModel) {
+        return new ComicCharacter(comicCharacterApiModel.id, comicCharacterApiModel.name,
+                comicCharacterApiModel.siteDetailUrl);
     }
 
 }

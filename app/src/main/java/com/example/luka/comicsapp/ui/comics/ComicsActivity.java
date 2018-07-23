@@ -24,16 +24,13 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
 
     private ComicContract.Presenter presenter;
     public static final String KEY_DETAILS = "DETAILS";
-    @BindView(R.id.comic_list_view)
+    @BindView(R.id.comic_list)
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeContainer;
     @BindString(R.string.error_text)
     String errorText;
     private ComicAdapter adapter;
-
-    private boolean isLoading = false;
-    private int offset = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,28 +41,18 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
         initUi();
 
         swipeContainer.setRefreshing(true);
-        presenter.getComics(offset++);
+        presenter.getComics();
     }
 
     private void initUi() {
         ButterKnife.bind(this);
 
         swipeContainer.setOnRefreshListener(() -> {
-            offset = 0;
-            presenter.getComics(offset++);
+            presenter.performRefresh();
+            presenter.getComics();
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (!recyclerView.canScrollVertically(1) && !isLoading) {
-                    isLoading = true;
-                    presenter.getComics(offset++);
-                    swipeContainer.setRefreshing(true);
-                }
-            }
-        });
+        recyclerView.addOnScrollListener(new LazyLoadingManager(presenter, swipeContainer));
 
         initAdapter();
     }
@@ -96,16 +83,16 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
 
     @Override
     public void renderComics(ComicViewModel param) {
-        if (isLoading) {
-            adapter.addData(param.comicList);
-        } else {
-            adapter.setData(param.comicList);
-        }
-
+        adapter.addData(param.comicList);
         swipeContainer.setRefreshing(false);
-        isLoading = false;
+        presenter.setLoading(false);
     }
 
+    @Override
+    public void renderComicsRefresh(ComicViewModel param) {
+        adapter.setData(param.comicList);
+        swipeContainer.setRefreshing(false);
+    }
 
     @Override
     public void alertErrorMessage() {

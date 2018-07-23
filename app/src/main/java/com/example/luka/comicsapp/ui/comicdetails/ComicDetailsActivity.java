@@ -28,7 +28,7 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
 
     @BindView(R.id.comic_details_name)
     TextView nameText;
-    @BindView(R.id.comic_details_desc)
+    @BindView(R.id.comic_details_description)
     TextView descriptionText;
     @BindView(R.id.comic_details_image)
     ImageView headerImageView;
@@ -36,7 +36,7 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
     TextView episodeNumber;
     @BindView(R.id.comic_details_date_last_updated)
     TextView dateLastUpdated;
-    @BindView(R.id.comic_characters_list_view)
+    @BindView(R.id.comic_characters_list)
     RecyclerView recyclerView;
     @BindView(R.id.comic_details_characters_label)
     TextView charactersLabel;
@@ -50,7 +50,6 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
     @BindString(R.string.characters)
     String characters;
 
-    private Comic comic;
     private ComicDetailsAdapter adapter;
 
     @Override
@@ -59,21 +58,17 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
         setContentView(R.layout.activity_comic_details);
         initPresenter();
 
-        getExtras();
         initUi();
+        getExtras();
+        displayData();
 
-        presenter.getComicDetails(comic.apiDetailUrl);
+        presenter.getComicDetails(presenter.getComic().apiDetailUrl);
     }
 
-    private void initUi() {
-        ButterKnife.bind(this);
+    private void displayData() {
+        Comic comic = presenter.getComic();
 
-        initAdapter();
-
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(manager);
-
-        nameText.setText(String.format(Locale.getDefault(), episodeName, comic.name));
+        nameText.setText(String.format(Locale.getDefault(), episodeName, comic.episodeName));
         SpannableString spannableDescription = new SpannableString(Html.fromHtml(comic.description));
         descriptionText.setText(spannableDescription);
 
@@ -83,6 +78,15 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
         ImageLoader.loadImage(comic.thumbnailUrl, headerImageView, R.mipmap.ic_launcher);
     }
 
+    private void initUi() {
+        ButterKnife.bind(this);
+
+        initAdapter();
+
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(manager);
+    }
+
     private void initAdapter() {
         adapter = new ComicDetailsAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -90,7 +94,8 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
     }
 
     private void getExtras() {
-        comic = (Comic) getIntent().getSerializableExtra(ComicsActivity.KEY_DETAILS);
+        Comic comic = (Comic) getIntent().getSerializableExtra(ComicsActivity.KEY_DETAILS);
+        presenter.setComic(comic);
     }
 
     private void initPresenter() {
@@ -104,9 +109,12 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
 
     @Override
     public void showComicDetails(ComicDetailsViewModel comicDetails) {
-        charactersLabel.setText(characters);
+        if (comicDetails.characters.size() != 0) {
+            charactersLabel.setText(characters);
+        }
+
         adapter.setData(comicDetails.characters);
-        ImageLoader.loadImage(comic.screenUrl, headerImageView, R.mipmap.ic_launcher);
+        ImageLoader.loadImage(presenter.getComic().screenUrl, headerImageView, R.mipmap.ic_launcher);
     }
 
 }

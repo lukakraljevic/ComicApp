@@ -16,14 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class ComicDetailsAdapter extends RecyclerView.Adapter<ComicDetailsAdapter.ViewHolder> {
+public final class ComicDetailsAdapter extends RecyclerView.Adapter<ComicDetailsAdapter.ViewHolder> {
 
     private Context context;
-    private List<ComicCharacter> dataSource;
+    private List<ComicCharacter> dataSource = new ArrayList<>();
 
     public ComicDetailsAdapter(Context context) {
         this.context = context;
-        this.dataSource = new ArrayList<>();
     }
 
     public void setData(List<ComicCharacter> data) {
@@ -50,11 +49,6 @@ public class ComicDetailsAdapter extends RecyclerView.Adapter<ComicDetailsAdapte
     }
 
     @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
     public int getItemCount() {
         return dataSource.size();
     }
@@ -74,6 +68,5 @@ public class ComicDetailsAdapter extends RecyclerView.Adapter<ComicDetailsAdapte
             nameTextView = itemView.findViewById(R.id.character_list_name);
             detailsTextView = itemView.findViewById(R.id.character_list_details);
         }
-
     }
 }

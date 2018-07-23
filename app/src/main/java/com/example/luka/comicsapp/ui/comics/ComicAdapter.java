@@ -17,15 +17,14 @@ import com.example.luka.comicsapp.ui.utils.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> {
+public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> {
 
     private Context context;
-    private List<Comic> dataSource;
+    private List<Comic> dataSource = new ArrayList<>();
     private ItemClickListener itemClickListener;
 
     public ComicAdapter(Context context) {
         this.context = context;
-        this.dataSource = new ArrayList<>();
     }
 
     public void setData(List<Comic> data) {
@@ -49,7 +48,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Comic comic = dataSource.get(position);
+        final Comic comic = dataSource.get(position);
         holder.titleTextView.setText(comic.name);
         holder.airDateTextView.setText(comic.airDate);
         ImageLoader.loadImage(comic.thumbnailUrl, holder.thumbnailImageView, R.mipmap.ic_launcher);

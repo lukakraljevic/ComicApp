@@ -7,11 +7,19 @@ public interface ComicContract {
 
         void renderComics(ComicViewModel comics);
 
+        void renderComicsRefresh(ComicViewModel param);
+
         void alertErrorMessage();
     }
 
     interface Presenter {
 
-        void getComics(int offset);
+        void getComics();
+
+        void setLoading(boolean b);
+
+        void performRefresh();
+
+        boolean getLoading();
     }
 }

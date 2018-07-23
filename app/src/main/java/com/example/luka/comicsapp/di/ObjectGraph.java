@@ -40,7 +40,7 @@ public class ObjectGraph {
     private static ComicDetailsViewModelMapper comicDetailsViewModelMapper;
 
     private static UseCaseWithParam<Integer, List<Comic>> comicsUseCase;
-    private static UseCaseWithParam<String, ComicDetails> useCase;
+    private static UseCaseWithParam<String, ComicDetails> comicDetailsUseCase;
 
     private static final String BASE_URL = "https://comicvine.gamespot.com/";
     private static final String DATE_FORMAT = "yyyy-MM-dd' 'HH:mm:ss";
@@ -72,19 +72,23 @@ public class ObjectGraph {
 
 
         comicsUseCase = new GetComicsUseCase(comicRepository);
-        useCase = new ShowComicDetailsUseCase(comicRepository);
+        comicDetailsUseCase = new ShowComicDetailsUseCase(comicRepository);
     }
 
     private Retrofit createRetrofit(OkHttpClient client) {
-        Gson gson = new GsonBuilder()
-                .setDateFormat(DATE_FORMAT)
-                .create();
+        Gson gson = getJson();
 
         return new Retrofit.Builder()
                             .baseUrl(BASE_URL)
                             .client(client)
                             .addConverterFactory(GsonConverterFactory.create(gson))
                             .build();
+    }
+
+    private Gson getJson() {
+        return new GsonBuilder()
+                .setDateFormat(DATE_FORMAT)
+                .create();
     }
 
 
@@ -101,6 +105,6 @@ public class ObjectGraph {
     }
 
     public ComicDetailsContract.Presenter getComicDetailsPresenter(ComicDetailsContract.View view) {
-        return new ComicDetailsPresenter(view, useCase, comicDetailsViewModelMapper);
+        return new ComicDetailsPresenter(view, comicDetailsUseCase, comicDetailsViewModelMapper);
     }
 }
