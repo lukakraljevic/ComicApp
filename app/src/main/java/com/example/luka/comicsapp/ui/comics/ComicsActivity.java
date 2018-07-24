@@ -10,19 +10,23 @@ import android.widget.Toast;
 
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
-import com.example.luka.comicsapp.di.ObjectGraph;
-import com.example.luka.comicsapp.ui.listener.ComicClickListener;
+import com.example.luka.comicsapp.di.component.ActivityScope;
+import com.example.luka.comicsapp.di.module.ComponentFactory;
 import com.example.luka.comicsapp.ui.comicdetails.ComicDetailsActivity;
+import com.example.luka.comicsapp.ui.listener.ComicClickListener;
 import com.example.luka.comicsapp.ui.listener.LazyLoadingListener;
+
+import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+@ActivityScope
 public class ComicsActivity extends AppCompatActivity implements ComicContract.View, ComicClickListener, LazyLoadingListener {
 
-    private ComicContract.Presenter presenter;
+    @Inject
+    ComicContract.Presenter presenter;
     public static final String KEY_DETAILS = "DETAILS";
 
     @BindView(R.id.comic_list)
@@ -38,28 +42,22 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comics);
-
         initPresenter();
+
         initUi();
 
-        swipeContainer.setRefreshing(true);
-        presenter.getComics(true);
+        getComics(true);
     }
 
     private void initUi() {
         ButterKnife.bind(this);
 
         swipeContainer.setOnRefreshListener(() -> {
-            presenter.getComics(true);
-            swipeContainer.setRefreshing(true);
+            getComics(true);
         });
 
-        LazyLoadingManager manager = new LazyLoadingManager();
-        manager.addListener((LazyLoadingListener) presenter);
-        manager.addListener(this);
-
+        LazyLoadingManager manager = new LazyLoadingManager(this);
         recyclerView.addOnScrollListener(manager);
-
         initAdapter();
     }
 
@@ -82,7 +80,8 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
     }
 
     private void initPresenter() {
-        presenter = ObjectGraph.getInstance().getComicPresenter(this);
+        ComponentFactory.createActivityComponent(this).inject(this);
+        presenter.setView(this);
     }
 
     @Override
@@ -96,8 +95,13 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
         Toast.makeText(getApplicationContext(), errorText, Toast.LENGTH_SHORT).show();
     }
 
+    private void getComics(boolean isRefreshing) {
+        swipeContainer.setRefreshing(true);
+        presenter.getComics(isRefreshing);
+    }
+
     @Override
     public void onBottomReached() {
-        swipeContainer.setRefreshing(true);
+        getComics(false);
     }
 }

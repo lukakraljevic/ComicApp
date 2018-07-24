@@ -11,6 +11,4 @@ public final class ComicMapper {
                         apiModel.comicSeries.name, apiModel.image.smallUrl, apiModel.image.screenUrl,
                         apiModel.episodeNumber, apiModel.dateLastUpdated, apiModel.name);
     }
-
-
 }

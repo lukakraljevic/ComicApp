@@ -2,15 +2,22 @@ package com.example.luka.comicsapp;
 
 import android.app.Application;
 
-import com.example.luka.comicsapp.di.ObjectGraph;
+import com.example.luka.comicsapp.di.component.ApplicationComponent;
+import com.example.luka.comicsapp.di.module.ComponentFactory;
 
 
 public class App extends Application {
+
+    private static ApplicationComponent component;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        ObjectGraph.getInstance().initialize();
+        component = ComponentFactory.createApplicationComponent(this);
+    }
+
+    public static ApplicationComponent getComponent() {
+        return component;
     }
 }

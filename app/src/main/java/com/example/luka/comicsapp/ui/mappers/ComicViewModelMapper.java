@@ -10,5 +10,4 @@ public final class ComicViewModelMapper {
     public ComicViewModel mapToComicViewModel(List<Comic> comics) {
         return new ComicViewModel(comics);
     }
-
 }

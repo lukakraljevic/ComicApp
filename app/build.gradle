@@ -51,4 +51,9 @@ dependencies {
     testImplementation "junit:junit:$junitLib"
     androidTestImplementation "com.android.support.test:runner:$testRunnerLib"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoLib"
+
+    //dagger
+    implementation "com.google.dagger:dagger-android-support:$daggerLib"
+    implementation "com.google.dagger:dagger:$daggerLib"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerLib"
 }

@@ -23,6 +23,7 @@ buildscript {
     ext.junitLib = "4.12"
     ext.testRunnerLib = "1.0.2"
     ext.espressoLib = "3.0.2"
+    ext.daggerLib = "2.11"
 }
 
 allprojects {

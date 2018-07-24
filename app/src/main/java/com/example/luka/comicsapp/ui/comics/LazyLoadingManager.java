@@ -4,17 +4,14 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.luka.comicsapp.ui.listener.LazyLoadingListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class LazyLoadingManager extends RecyclerView.OnScrollListener {
 
-    private final List<LazyLoadingListener> listeners = new ArrayList<>();
+    private final LazyLoadingListener listener;
 
     private static final int DIRECTION_DOWN = 1;
 
-    public void addListener(LazyLoadingListener listener) {
-        listeners.add(listener);
+    public LazyLoadingManager(LazyLoadingListener listener) {
+        this.listener = listener;
     }
 
 
@@ -23,9 +20,7 @@ public final class LazyLoadingManager extends RecyclerView.OnScrollListener {
         super.onScrollStateChanged(recyclerView, newState);
 
         if (!recyclerView.canScrollVertically(DIRECTION_DOWN)) {
-            for (LazyLoadingListener listener : listeners) {
-                listener.onBottomReached();
-            }
+            listener.onBottomReached();
         }
     }
 }

@@ -7,10 +7,15 @@ import com.example.domain.repository.ComicRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public final class GetComicsUseCase implements UseCaseWithParam<Integer, List<Comic>> {
 
     private final ComicRepository comicRepository;
 
+    @Inject
     public GetComicsUseCase(ComicRepository comicRepository) {
         this.comicRepository = comicRepository;
     }
