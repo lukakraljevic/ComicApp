@@ -11,7 +11,8 @@ import retrofit2.http.Query;
 public interface ComicService {
 
     @GET("/api/episodes")
-    Call<ComicResponse> getComics(@Query("api_key") String apiKey, @Query("format") String format, @Query("limit") int limit);
+    Call<ComicResponse> getComics(@Query("api_key") String apiKey, @Query("format") String format, @Query("limit") int limit,
+                                  @Query("offset") int offset);
 
     @GET("/api/episode/{id}")
     Call<ComicDetailsResponse> getComicDetails(@Path("id") String id, @Query("api_key") String apiKey, @Query("format") String format);

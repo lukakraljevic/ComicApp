@@ -12,11 +12,14 @@ public final class ComicImageModel {
     public final String screenUrl;
     @SerializedName("small_url")
     public final String smallUrl;
+    @SerializedName("screen_large_url")
+    public final String screenLargeUrl;
 
-    public ComicImageModel(String mediumUrl, String thumbUrl, String screenUrl, String smallUrl) {
+    public ComicImageModel(String mediumUrl, String thumbUrl, String screenUrl, String smallUrl, String screenLargeUrl) {
         this.mediumUrl = mediumUrl;
         this.thumbUrl = thumbUrl;
         this.screenUrl = screenUrl;
         this.smallUrl = smallUrl;
+        this.screenLargeUrl = screenLargeUrl;
     }
 }

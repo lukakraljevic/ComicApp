@@ -7,7 +7,7 @@ import com.example.domain.repository.ComicRepository;
 
 import java.util.List;
 
-public class GetComicsUseCase implements UseCase<List<Comic>> {
+public final class GetComicsUseCase implements UseCaseWithParam<Integer, List<Comic>> {
 
     private final ComicRepository comicRepository;
 
@@ -16,7 +16,8 @@ public class GetComicsUseCase implements UseCase<List<Comic>> {
     }
 
     @Override
-    public void execute(final RequestCallback<List<Comic>> callback) {
-        comicRepository.fetchTrending(callback);
+    public void execute(final Integer page, final RequestCallback<List<Comic>> callback) {
+        comicRepository.fetchTrending(page, callback);
     }
+
 }

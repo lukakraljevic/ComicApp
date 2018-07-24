@@ -36,8 +36,8 @@ public class ComicRepositoryImpl implements ComicRepository {
     }
 
     @Override
-    public void fetchTrending(final RequestCallback<List<Comic>> callback) {
-        comicService.getComics(API_KEY, FORMAT, LIMIT).enqueue(new Callback<ComicResponse>() {
+    public void fetchTrending(final int page, final RequestCallback<List<Comic>> callback) {
+        comicService.getComics(API_KEY, FORMAT, LIMIT, page * LIMIT).enqueue(new Callback<ComicResponse>() {
             @Override
             public void onResponse(Call<ComicResponse> call, Response<ComicResponse> response) {
                 final ComicResponse body = response.body();
@@ -63,7 +63,7 @@ public class ComicRepositoryImpl implements ComicRepository {
     }
 
     @Override
-    public void getComicDetails(String url,final RequestCallback<ComicDetails> callback) {
+    public void getComicDetails(String url, final RequestCallback<ComicDetails> callback) {
         String[] parts = url.split("/");
 
         if (parts.length == 0) return;

@@ -9,7 +9,6 @@ import com.example.domain.model.ComicDetails;
 import com.example.domain.repository.ComicRepository;
 import com.example.domain.usecase.GetComicsUseCase;
 import com.example.domain.usecase.ShowComicDetailsUseCase;
-import com.example.domain.usecase.UseCase;
 import com.example.domain.usecase.UseCaseWithParam;
 import com.example.luka.comicsapp.ui.comicdetails.ComicDetailsContract;
 import com.example.luka.comicsapp.ui.comicdetails.ComicDetailsPresenter;
@@ -17,6 +16,8 @@ import com.example.luka.comicsapp.ui.comics.ComicContract;
 import com.example.luka.comicsapp.ui.comics.ComicsPresenter;
 import com.example.luka.comicsapp.ui.mappers.ComicDetailsViewModelMapper;
 import com.example.luka.comicsapp.ui.mappers.ComicViewModelMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -38,12 +39,11 @@ public class ObjectGraph {
     private static ComicViewModelMapper comicViewModelMapper;
     private static ComicDetailsViewModelMapper comicDetailsViewModelMapper;
 
-    private static UseCase<List<Comic>> noParamUseCase;
-    private static UseCaseWithParam<String, ComicDetails> useCase;
+    private static UseCaseWithParam<Integer, List<Comic>> comicsUseCase;
+    private static UseCaseWithParam<String, ComicDetails> comicDetailsUseCase;
 
-
-
-    public static final String BASE_URL = "https://comicvine.gamespot.com/";
+    private static final String BASE_URL = "https://comicvine.gamespot.com/";
+    private static final String DATE_FORMAT = "yyyy-MM-dd' 'HH:mm:ss";
 
     private ObjectGraph() {
     }
@@ -71,16 +71,24 @@ public class ObjectGraph {
         comicRepository = new ComicRepositoryImpl(comicService, comicMapper, comicDetailsMapper);
 
 
-        noParamUseCase = new GetComicsUseCase(comicRepository);
-        useCase = new ShowComicDetailsUseCase(comicRepository);
+        comicsUseCase = new GetComicsUseCase(comicRepository);
+        comicDetailsUseCase = new ShowComicDetailsUseCase(comicRepository);
     }
 
     private Retrofit createRetrofit(OkHttpClient client) {
+        Gson gson = getJson();
+
         return new Retrofit.Builder()
                             .baseUrl(BASE_URL)
                             .client(client)
-                            .addConverterFactory(GsonConverterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create(gson))
                             .build();
+    }
+
+    private Gson getJson() {
+        return new GsonBuilder()
+                .setDateFormat(DATE_FORMAT)
+                .create();
     }
 
 
@@ -93,10 +101,10 @@ public class ObjectGraph {
     }
 
     public ComicContract.Presenter getComicPresenter(ComicContract.View view) {
-        return new ComicsPresenter(view, noParamUseCase, comicViewModelMapper);
+        return new ComicsPresenter(view, comicsUseCase, comicViewModelMapper);
     }
 
     public ComicDetailsContract.Presenter getComicDetailsPresenter(ComicDetailsContract.View view) {
-        return new ComicDetailsPresenter(view, useCase, comicDetailsViewModelMapper);
+        return new ComicDetailsPresenter(view, comicDetailsUseCase, comicDetailsViewModelMapper);
     }
 }

@@ -2,5 +2,9 @@
     <string name="app_name">ComicsApp</string>
     <string name="error_text">An error occurred!</string>
     <string name="episode_name">Episode name: %1$s</string>
+    <string name="episode_number">Episode number: %1$d</string>
     <string name="favorite">Favorite</string>
+    <string name="characters">Characters:</string>
+    <string name="details">Details</string>
+    <string name="linkMatcher">[a-zA-Z./?]+</string>
 </resources>

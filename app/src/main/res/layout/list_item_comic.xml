@@ -1,42 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="@dimen/cardViewHeight"
+    android:layout_margin="@dimen/layoutMargin">
 
-    <ImageView
-        android:id="@+id/comic_list_thumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/listItemComponentMargin"
-        android:layout_marginBottom="@dimen/listItemComponentMargin"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@mipmap/ic_launcher" />
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground">
 
-    <TextView
-        android:id="@+id/comic_list_air_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorGray"
-        android:textAlignment="center"
-        android:textSize="@dimen/airDateTextSize"
-        android:layout_marginTop="@dimen/listItemComponentMargin"
-        app:layout_constraintLeft_toLeftOf="@id/comic_list_thumbnail"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        <ImageView
+            android:id="@+id/comic_list_thumbnail"
+            android:layout_width="@dimen/dimenZero"
+            android:layout_height="@dimen/dimenZero"
+            android:layout_marginBottom="@dimen/listItemComponentMargin"
+            android:layout_marginStart="@dimen/listItemComponentMargin"
+            android:layout_marginTop="@dimen/listItemComponentMargin"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/comic_list_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorBlack"
-        android:textAlignment="center"
-        android:textSize="@dimen/titleTextSize"
-        android:layout_marginBottom="@dimen/listItemComponentMargin"
-        app:layout_constraintTop_toTopOf="@id/comic_list_air_date"
-        app:layout_constraintLeft_toLeftOf="@id/comic_list_thumbnail"
-        />
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/comic_list_air_date"
+            android:layout_width="@dimen/dimenZero"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/listItemComponentMargin"
+            android:layout_marginTop="@dimen/listItemComponentMargin"
+            android:gravity="start|center_vertical"
+            android:textColor="@color/colorGray"
+            android:textSize="@dimen/airDateTextSize"
+            app:layout_constraintLeft_toRightOf="@id/comic_list_thumbnail"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/comic_list_title"
+            android:layout_width="@dimen/dimenZero"
+            android:layout_height="@dimen/dimenZero"
+            android:layout_marginStart="@dimen/listItemComponentMargin"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:maxLines="1"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/titleTextSize"
+            app:layout_constraintBottom_toBottomOf="@id/comic_list_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/comic_list_thumbnail"
+            app:layout_constraintTop_toBottomOf="@id/comic_list_air_date" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

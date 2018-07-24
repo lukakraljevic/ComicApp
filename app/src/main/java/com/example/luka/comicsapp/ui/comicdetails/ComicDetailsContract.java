@@ -8,7 +8,6 @@ public interface ComicDetailsContract {
         void showComicDetails(ComicDetailsViewModel comicDetails);
 
         void alertErrorMessage();
-
     }
 
     interface Presenter {

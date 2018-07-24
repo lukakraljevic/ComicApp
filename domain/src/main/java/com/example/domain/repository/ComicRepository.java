@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ComicRepository {
 
-    void fetchTrending(RequestCallback<List<Comic>> callback);
+    void fetchTrending(int page, RequestCallback<List<Comic>> callback);
 
     void getComicDetails(String url, RequestCallback<ComicDetails> callback);
 }
