@@ -14,11 +14,13 @@ import android.widget.Toast;
 
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
-import com.example.luka.comicsapp.di.ObjectGraph;
+import com.example.luka.comicsapp.di.component.ComponentFactory;
 import com.example.luka.comicsapp.ui.comics.ComicsActivity;
 import com.example.luka.comicsapp.ui.utils.ImageLoader;
 
 import java.util.Locale;
+
+import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -26,7 +28,8 @@ import butterknife.ButterKnife;
 
 public class ComicDetailsActivity extends AppCompatActivity implements ComicDetailsContract.View {
 
-    private ComicDetailsContract.Presenter presenter;
+    @Inject
+    ComicDetailsContract.Presenter presenter;
 
     @BindView(R.id.comic_details_name)
     TextView nameText;
@@ -74,8 +77,6 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
     }
 
     private void displayData() {
-        //the only place i'm using intent info from ComicActivity is here
-        //no need to send it to presenter
         Comic comic = (Comic) getIntent().getSerializableExtra(ComicsActivity.KEY_DETAILS);
 
         nameText.setText(String.format(Locale.getDefault(), episodeName, comic.episodeName));
@@ -98,7 +99,8 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
     }
 
     private void initPresenter() {
-        presenter = ObjectGraph.getInstance().getComicDetailsPresenter(this);
+        ComponentFactory.createActivityComponent(this).inject(this);
+        presenter.setView(this);
     }
 
     @Override
@@ -116,5 +118,4 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
         adapter.setData(comicDetails.characters);
         ImageLoader.loadImage(comicDetails.imageUrl, headerImageView, R.mipmap.ic_launcher);
     }
-
 }

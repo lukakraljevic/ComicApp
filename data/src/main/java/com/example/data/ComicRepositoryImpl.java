@@ -2,8 +2,8 @@ package com.example.data;
 
 import com.example.data.apimodel.comic.ComicApiModel;
 import com.example.data.apimodel.comic.ComicResponse;
-import com.example.data.apimodel.comicdetails.ComicDetailsResponse;
 import com.example.data.apimodel.comicdetails.ComicDetailsApiModel;
+import com.example.data.apimodel.comicdetails.ComicDetailsResponse;
 import com.example.data.mappers.ComicDetailsMapper;
 import com.example.data.mappers.ComicMapper;
 import com.example.data.networking.ComicService;
@@ -15,6 +15,8 @@ import com.example.domain.repository.ComicRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,11 +26,11 @@ public class ComicRepositoryImpl implements ComicRepository {
     private static final String API_KEY = "2e7a75541721af0132f5c1c7729619708a8c3438";
     private static final String FORMAT = "json";
     private static final int LIMIT = 10;
-
     private final ComicService comicService;
     private final ComicMapper comicMapper;
     private final ComicDetailsMapper comicDetailsMapper;
 
+    @Inject
     public ComicRepositoryImpl(ComicService apiService, ComicMapper comicMapper, ComicDetailsMapper comicDetailsMapper) {
         this.comicService = apiService;
         this.comicMapper = comicMapper;

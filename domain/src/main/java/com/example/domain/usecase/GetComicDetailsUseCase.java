@@ -4,11 +4,16 @@ import com.example.domain.listener.RequestCallback;
 import com.example.domain.model.ComicDetails;
 import com.example.domain.repository.ComicRepository;
 
-public final class ShowComicDetailsUseCase implements UseCaseWithParam<String, ComicDetails> {
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
+public final class GetComicDetailsUseCase implements UseCaseWithParam<String, ComicDetails> {
 
     private final ComicRepository comicRepository;
 
-    public ShowComicDetailsUseCase(ComicRepository comicRepository) {
+    @Inject
+    public GetComicDetailsUseCase(ComicRepository comicRepository) {
         this.comicRepository = comicRepository;
     }
 

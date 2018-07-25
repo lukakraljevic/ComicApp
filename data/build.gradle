@@ -35,4 +35,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$networkingLib"
     implementation "com.squareup.retrofit2:converter-gson:$networkingLib"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLib"
+
+    //dagger
+    implementation "com.google.dagger:dagger-android-support:$daggerLib"
+    implementation "com.google.dagger:dagger:$daggerLib"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerLib"
 }

@@ -3,7 +3,7 @@ package com.example.domain.utils;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class DateFormatUtils {
+public final class DateFormatUtils {
 
     private static final String DATE_PATTERN = "dd.MM.yyyy.";
     private static final SimpleDateFormat simpleDateFormat =

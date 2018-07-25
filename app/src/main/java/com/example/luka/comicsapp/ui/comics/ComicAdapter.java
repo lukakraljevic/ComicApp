@@ -19,7 +19,7 @@ import java.util.List;
 public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHolder> {
 
     private final List<Comic> dataSource = new ArrayList<>();
-    private ComicClickListener itemClickListener;
+    private ComicClickListener comicClickListener;
 
     public void setData(List<Comic> data) {
         this.dataSource.clear();
@@ -40,7 +40,7 @@ public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_comic, parent, false);
-        return new ViewHolder(view, itemClickListener);
+        return new ViewHolder(view, comicClickListener);
     }
 
     @Override
@@ -63,7 +63,7 @@ public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHo
     }
 
     void setClickListener(ComicClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
+        this.comicClickListener = itemClickListener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -71,12 +71,12 @@ public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHo
         TextView titleTextView;
         TextView airDateTextView;
         ImageView thumbnailImageView;
-        ComicClickListener itemClickListener;
+        ComicClickListener comicClickListener;
         private Comic comic;
 
         public ViewHolder(View itemView, ComicClickListener itemClickListener) {
             super(itemView);
-            this.itemClickListener = itemClickListener;
+            this.comicClickListener = itemClickListener;
             titleTextView = itemView.findViewById(R.id.comic_list_title);
             airDateTextView = itemView.findViewById(R.id.comic_list_air_date);
             thumbnailImageView = itemView.findViewById(R.id.comic_list_thumbnail);
@@ -89,8 +89,8 @@ public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            if (itemClickListener != null)
-                itemClickListener.onComicClick(comic);
+            if (comicClickListener != null)
+                comicClickListener.onComicClick(comic);
         }
     }
 }

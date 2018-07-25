@@ -2,18 +2,23 @@ package com.example.luka.comicsapp.ui.comicdetails;
 
 import com.example.domain.listener.RequestCallback;
 import com.example.domain.model.ComicDetails;
+import com.example.domain.usecase.GetComicDetailsUseCase;
 import com.example.domain.usecase.UseCaseWithParam;
 import com.example.luka.comicsapp.ui.mappers.ComicDetailsViewModelMapper;
 
+import javax.inject.Inject;
+
 public final class ComicDetailsPresenter implements ComicDetailsContract.Presenter {
 
-    private final ComicDetailsContract.View view;
+    ComicDetailsContract.View view;
+
     private final UseCaseWithParam<String, ComicDetails> comicDetailsUseCase;
+
     private final ComicDetailsViewModelMapper comicDetailsViewModelMapper;
 
-    public ComicDetailsPresenter(ComicDetailsContract.View view, UseCaseWithParam<String, ComicDetails> comicDetailsUseCase,
+    @Inject
+    public ComicDetailsPresenter(GetComicDetailsUseCase comicDetailsUseCase,
                                  ComicDetailsViewModelMapper comicDetailsViewModelMapper) {
-        this.view = view;
         this.comicDetailsUseCase = comicDetailsUseCase;
         this.comicDetailsViewModelMapper = comicDetailsViewModelMapper;
     }
@@ -37,4 +42,8 @@ public final class ComicDetailsPresenter implements ComicDetailsContract.Present
         comicDetailsUseCase.execute(url, getComicDetailsCallback());
     }
 
+    @Override
+    public void setView(ComicDetailsContract.View view) {
+        this.view = view;
+    }
 }

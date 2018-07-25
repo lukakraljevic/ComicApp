@@ -2,6 +2,10 @@ apply plugin: 'java-library'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //dagger
+    implementation "com.google.dagger:dagger-android-support:$daggerLib"
+    implementation "com.google.dagger:dagger:$daggerLib"
 }
 
 sourceCompatibility = "1.7"
