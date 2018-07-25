@@ -2,13 +2,12 @@ package com.example.luka.comicsapp.ui.comicdetails;
 
 import com.example.domain.listener.RequestCallback;
 import com.example.domain.model.ComicDetails;
+import com.example.domain.usecase.GetComicDetailsUseCase;
 import com.example.domain.usecase.UseCaseWithParam;
-import com.example.luka.comicsapp.di.component.ActivityScope;
 import com.example.luka.comicsapp.ui.mappers.ComicDetailsViewModelMapper;
 
 import javax.inject.Inject;
 
-@ActivityScope
 public final class ComicDetailsPresenter implements ComicDetailsContract.Presenter {
 
     ComicDetailsContract.View view;
@@ -18,7 +17,7 @@ public final class ComicDetailsPresenter implements ComicDetailsContract.Present
     private final ComicDetailsViewModelMapper comicDetailsViewModelMapper;
 
     @Inject
-    public ComicDetailsPresenter(UseCaseWithParam<String, ComicDetails> comicDetailsUseCase,
+    public ComicDetailsPresenter(GetComicDetailsUseCase comicDetailsUseCase,
                                  ComicDetailsViewModelMapper comicDetailsViewModelMapper) {
         this.comicDetailsUseCase = comicDetailsUseCase;
         this.comicDetailsViewModelMapper = comicDetailsViewModelMapper;

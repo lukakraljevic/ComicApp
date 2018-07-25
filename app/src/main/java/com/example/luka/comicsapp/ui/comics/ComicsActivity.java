@@ -10,8 +10,7 @@ import android.widget.Toast;
 
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
-import com.example.luka.comicsapp.di.component.ActivityScope;
-import com.example.luka.comicsapp.di.module.ComponentFactory;
+import com.example.luka.comicsapp.di.component.ComponentFactory;
 import com.example.luka.comicsapp.ui.comicdetails.ComicDetailsActivity;
 import com.example.luka.comicsapp.ui.listener.ComicClickListener;
 import com.example.luka.comicsapp.ui.listener.LazyLoadingListener;
@@ -22,7 +21,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-@ActivityScope
 public class ComicsActivity extends AppCompatActivity implements ComicContract.View, ComicClickListener, LazyLoadingListener {
 
     @Inject

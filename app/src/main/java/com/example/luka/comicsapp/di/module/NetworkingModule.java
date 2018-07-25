@@ -1,6 +1,7 @@
 package com.example.luka.comicsapp.di.module;
 
 import com.example.data.networking.ComicService;
+import com.example.luka.comicsapp.di.DaggerConstants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -36,13 +37,13 @@ public class NetworkingModule {
 
     @Provides
     @Singleton
-    public @Named("date") String provideDateFormat() {
+    public @Named(DaggerConstants.DATE) String provideDateFormat() {
         return DATE_FORMAT;
     }
 
     @Provides
     @Singleton
-    public Gson provideGson(@Named("date") String dateFormat) {
+    public Gson provideGson(@Named(DaggerConstants.DATE) String dateFormat) {
         return new GsonBuilder()
                 .setDateFormat(dateFormat)
                 .create();
@@ -56,13 +57,13 @@ public class NetworkingModule {
 
     @Provides
     @Singleton
-    public @Named("base") String provideBase() {
+    public @Named(DaggerConstants.BASE) String provideBase() {
         return BASE_URL;
     }
 
     @Provides
     @Singleton
-    public Retrofit provideRetrofit(@Named("base") String baseURL, OkHttpClient client, GsonConverterFactory factory) {
+    public Retrofit provideRetrofit(@Named(DaggerConstants.BASE) String baseURL, OkHttpClient client, GsonConverterFactory factory) {
         return new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .client(client)

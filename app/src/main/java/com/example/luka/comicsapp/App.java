@@ -3,7 +3,7 @@ package com.example.luka.comicsapp;
 import android.app.Application;
 
 import com.example.luka.comicsapp.di.component.ApplicationComponent;
-import com.example.luka.comicsapp.di.module.ComponentFactory;
+import com.example.luka.comicsapp.di.component.ComponentFactory;
 
 
 public class App extends Application {

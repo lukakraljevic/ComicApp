@@ -2,15 +2,14 @@ package com.example.luka.comicsapp.ui.comics;
 
 import com.example.domain.listener.RequestCallback;
 import com.example.domain.model.Comic;
+import com.example.domain.usecase.GetComicsUseCase;
 import com.example.domain.usecase.UseCaseWithParam;
-import com.example.luka.comicsapp.di.component.ActivityScope;
 import com.example.luka.comicsapp.ui.mappers.ComicViewModelMapper;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-@ActivityScope
 public final class ComicsPresenter implements ComicContract.Presenter {
 
     ComicContract.View view;
@@ -20,7 +19,7 @@ public final class ComicsPresenter implements ComicContract.Presenter {
     private boolean isLoading;
 
     @Inject
-    public ComicsPresenter(UseCaseWithParam<Integer, List<Comic>> comicUseCase,
+    public ComicsPresenter(GetComicsUseCase comicUseCase,
                            ComicViewModelMapper comicViewModelMapper) {
         this.comicUseCase = comicUseCase;
         this.comicViewModelMapper = comicViewModelMapper;

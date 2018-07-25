@@ -8,7 +8,15 @@ import com.example.domain.model.ComicDetails;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public final class ComicDetailsMapper {
+
+    @Inject
+    public ComicDetailsMapper() {
+    }
 
     public ComicDetails mapComicDetailsToModel(ComicDetailsApiModel apiModel) {
 

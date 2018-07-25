@@ -16,13 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-@Singleton
 public class ComicRepositoryImpl implements ComicRepository {
 
     private static final String API_KEY = "2e7a75541721af0132f5c1c7729619708a8c3438";

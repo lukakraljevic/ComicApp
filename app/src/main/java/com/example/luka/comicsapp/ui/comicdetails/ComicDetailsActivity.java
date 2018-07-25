@@ -14,8 +14,7 @@ import android.widget.Toast;
 
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
-import com.example.luka.comicsapp.di.component.ActivityScope;
-import com.example.luka.comicsapp.di.module.ComponentFactory;
+import com.example.luka.comicsapp.di.component.ComponentFactory;
 import com.example.luka.comicsapp.ui.comics.ComicsActivity;
 import com.example.luka.comicsapp.ui.utils.ImageLoader;
 
@@ -27,7 +26,6 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-@ActivityScope
 public class ComicDetailsActivity extends AppCompatActivity implements ComicDetailsContract.View {
 
     @Inject
