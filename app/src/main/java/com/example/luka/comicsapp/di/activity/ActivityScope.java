@@ -1,4 +1,4 @@
-package com.example.luka.comicsapp.di.component;
+package com.example.luka.comicsapp.di.activity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

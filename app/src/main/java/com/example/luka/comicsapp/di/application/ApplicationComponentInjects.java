@@ -1,4 +1,4 @@
-package com.example.luka.comicsapp.di.component;
+package com.example.luka.comicsapp.di.application;
 
 import com.example.luka.comicsapp.App;
 

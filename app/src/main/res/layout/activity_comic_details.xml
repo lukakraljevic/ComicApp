@@ -7,8 +7,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/detailsMargin">
+        android:layout_height="wrap_content" >
 
         <ImageView
             android:id="@+id/comic_details_image"
@@ -29,6 +28,7 @@
             android:layout_marginTop="@dimen/detailsMargin"
             android:fontFamily="sans-serif"
             android:textSize="@dimen/smallTextSize"
+            android:layout_margin="@dimen/detailsMargin"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/comic_details_image" />
 
@@ -41,6 +41,7 @@
             android:layout_marginTop="@dimen/detailsMargin"
             android:fontFamily="sans-serif"
             android:textSize="@dimen/smallTextSize"
+            android:layout_margin="@dimen/detailsMargin"
             app:layout_constraintBottom_toBottomOf="@id/episode_number"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/episode_number" />
@@ -50,10 +51,9 @@
             android:id="@+id/comic_details_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/detailsMargin"
-            android:layout_marginTop="@dimen/detailsMargin"
             android:fontFamily="sans-serif"
             android:textSize="@dimen/nameTextSize"
+            android:layout_margin="@dimen/detailsMargin"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/episode_number" />
 
@@ -63,6 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="@dimen/detailsMargin"
             app:layout_constraintTop_toBottomOf="@id/comic_details_name" />
 
 
@@ -70,18 +71,18 @@
             android:id="@+id/comic_details_characters_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/detailsMargin"
             android:textSize="@dimen/titleTextSize"
             android:text="@string/characters"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="@dimen/detailsMargin"
             app:layout_constraintTop_toBottomOf="@id/comic_details_description" />
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/comic_characters_list"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/detailsMargin"
+            android:layout_margin="@dimen/detailsMargin"
             app:layout_constraintTop_toBottomOf="@id/comic_details_characters_label" />
 
 
