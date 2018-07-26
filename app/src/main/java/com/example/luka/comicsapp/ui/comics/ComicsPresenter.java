@@ -4,15 +4,15 @@ import com.example.domain.listener.RequestCallback;
 import com.example.domain.model.Comic;
 import com.example.domain.usecase.GetComicsUseCase;
 import com.example.domain.usecase.UseCaseWithParam;
+import com.example.luka.comicsapp.base.BasePresenter;
 import com.example.luka.comicsapp.ui.mappers.ComicViewModelMapper;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-public final class ComicsPresenter implements ComicContract.Presenter {
+public final class ComicsPresenter extends BasePresenter<ComicContract.View> implements ComicContract.Presenter {
 
-    ComicContract.View view;
     private final UseCaseWithParam<Integer, List<Comic>> comicUseCase;
     private final ComicViewModelMapper comicViewModelMapper;
     private int page;
@@ -26,8 +26,33 @@ public final class ComicsPresenter implements ComicContract.Presenter {
     }
 
     @Override
-    public void setView(ComicContract.View view) {
-        this.view = view;
+    public void start() {
+        //on start logic
+    }
+
+    @Override
+    public void activate() {
+
+    }
+
+    @Override
+    public void deactivate() {
+
+    }
+
+    @Override
+    public void stop() {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public void back() {
+
     }
 
     @Override

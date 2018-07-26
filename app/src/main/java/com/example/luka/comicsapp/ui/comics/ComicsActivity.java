@@ -2,15 +2,17 @@ package com.example.luka.comicsapp.ui.comics;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
-import com.example.luka.comicsapp.di.component.ComponentFactory;
+import com.example.luka.comicsapp.base.BaseActivity;
+import com.example.luka.comicsapp.base.IBasePresenter;
+import com.example.luka.comicsapp.di.activity.ActivityComponent;
 import com.example.luka.comicsapp.ui.comicdetails.ComicDetailsActivity;
 import com.example.luka.comicsapp.ui.listener.ComicClickListener;
 import com.example.luka.comicsapp.ui.listener.LazyLoadingListener;
@@ -19,9 +21,8 @@ import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class ComicsActivity extends AppCompatActivity implements ComicContract.View, ComicClickListener, LazyLoadingListener {
+public class ComicsActivity extends BaseActivity implements ComicContract.View, ComicClickListener, LazyLoadingListener {
 
     @Inject
     ComicContract.Presenter presenter;
@@ -37,18 +38,19 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
     private final ComicAdapter adapter = new ComicAdapter();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comics);
-        initPresenter();
-
         initUi();
-
         getComics(true);
     }
 
-    private void initUi() {
-        ButterKnife.bind(this);
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_comics;
+    }
+
+    public void initUi() {
+        super.initUI();
 
         swipeContainer.setOnRefreshListener(() -> {
             getComics(true);
@@ -77,11 +79,6 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
         startActivity(comicDet);
     }
 
-    private void initPresenter() {
-        ComponentFactory.createActivityComponent(this).inject(this);
-        presenter.setView(this);
-    }
-
     @Override
     public void renderComics(ComicViewModel param, int page) {
         adapter.addData(param.comicList, page);
@@ -101,5 +98,15 @@ public class ComicsActivity extends AppCompatActivity implements ComicContract.V
     @Override
     public void onBottomReached() {
         getComics(false);
+    }
+
+    @Override
+    public IBasePresenter getPresenter() {
+        return presenter;
+    }
+
+    @Override
+    protected void inject(ActivityComponent activityComponent) {
+        getActivityComponent().inject(this);
     }
 }

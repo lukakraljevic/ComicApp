@@ -1,6 +1,12 @@
 package com.example.luka.comicsapp.base;
 
-public interface BasePresenter<T extends BaseView> {
+public abstract class BasePresenter<T extends BaseView> implements IBasePresenter<T> {
 
-    void setView(T view);
+    protected T view;
+
+    @Override
+    public void setView(T view) {
+        this.view = view;
+    }
+
 }

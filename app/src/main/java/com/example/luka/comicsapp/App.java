@@ -1,9 +1,10 @@
 package com.example.luka.comicsapp;
 
 import android.app.Application;
+import android.content.Context;
 
-import com.example.luka.comicsapp.di.component.ApplicationComponent;
-import com.example.luka.comicsapp.di.component.ComponentFactory;
+import com.example.luka.comicsapp.di.application.ApplicationComponent;
+import com.example.luka.comicsapp.di.ComponentFactory;
 
 
 public class App extends Application {
@@ -15,6 +16,10 @@ public class App extends Application {
         super.onCreate();
 
         component = ComponentFactory.createApplicationComponent(this);
+    }
+
+    public static App from(final Context context) {
+        return (App) context.getApplicationContext();
     }
 
     public static ApplicationComponent getComponent() {

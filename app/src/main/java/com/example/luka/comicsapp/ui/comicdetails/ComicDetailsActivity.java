@@ -1,7 +1,6 @@
 package com.example.luka.comicsapp.ui.comicdetails;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,9 @@ import android.widget.Toast;
 
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
-import com.example.luka.comicsapp.di.component.ComponentFactory;
+import com.example.luka.comicsapp.base.BaseActivity;
+import com.example.luka.comicsapp.base.IBasePresenter;
+import com.example.luka.comicsapp.di.activity.ActivityComponent;
 import com.example.luka.comicsapp.ui.comics.ComicsActivity;
 import com.example.luka.comicsapp.ui.utils.ImageLoader;
 
@@ -24,9 +25,8 @@ import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class ComicDetailsActivity extends AppCompatActivity implements ComicDetailsContract.View {
+public class ComicDetailsActivity extends BaseActivity implements ComicDetailsContract.View {
 
     @Inject
     ComicDetailsContract.Presenter presenter;
@@ -58,17 +58,19 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
     private ComicDetailsAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comic_details);
-        initPresenter();
-
         initUi();
         displayData();
     }
 
-    private void initUi() {
-        ButterKnife.bind(this);
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_comic_details;
+    }
+
+    public void initUi() {
+        super.initUI();
 
         initAdapter();
 
@@ -98,10 +100,6 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
         snapHelper.attachToRecyclerView(recyclerView);
     }
 
-    private void initPresenter() {
-        ComponentFactory.createActivityComponent(this).inject(this);
-        presenter.setView(this);
-    }
 
     @Override
     public void alertErrorMessage() {
@@ -117,5 +115,15 @@ public class ComicDetailsActivity extends AppCompatActivity implements ComicDeta
 
         adapter.setData(comicDetails.characters);
         ImageLoader.loadImage(comicDetails.imageUrl, headerImageView, R.mipmap.ic_launcher);
+    }
+
+    @Override
+    public IBasePresenter getPresenter() {
+        return presenter;
+    }
+
+    @Override
+    protected void inject(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
     }
 }

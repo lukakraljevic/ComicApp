@@ -1,4 +1,4 @@
-package com.example.luka.comicsapp.di.module;
+package com.example.luka.comicsapp.di.activity;
 
 import com.example.luka.comicsapp.ui.comicdetails.ComicDetailsContract;
 import com.example.luka.comicsapp.ui.comicdetails.ComicDetailsPresenter;
@@ -9,7 +9,7 @@ import dagger.Binds;
 import dagger.Module;
 
 @Module
-public abstract class PresentationModule {
+public abstract class ActivityPresenterModule {
 
     @Binds
     public abstract ComicContract.Presenter provideComicsPresenter(final ComicsPresenter presenter);

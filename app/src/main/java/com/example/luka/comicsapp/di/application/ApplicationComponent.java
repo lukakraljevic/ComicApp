@@ -1,6 +1,7 @@
-package com.example.luka.comicsapp.di.component;
+package com.example.luka.comicsapp.di.application;
 
 import com.example.luka.comicsapp.App;
+import com.example.luka.comicsapp.di.activity.ActivityComponent;
 import com.example.luka.comicsapp.di.module.NetworkingModule;
 import com.example.luka.comicsapp.di.module.RepositoryModule;
 

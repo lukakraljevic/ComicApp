@@ -1,7 +1,7 @@
 package com.example.luka.comicsapp.ui.comicdetails;
 
-import com.example.luka.comicsapp.base.BasePresenter;
 import com.example.luka.comicsapp.base.BaseView;
+import com.example.luka.comicsapp.base.IBasePresenter;
 
 public interface ComicDetailsContract {
 
@@ -13,7 +13,7 @@ public interface ComicDetailsContract {
         void alertErrorMessage();
     }
 
-    interface Presenter extends BasePresenter<View> {
+    interface Presenter extends IBasePresenter<View> {
 
         void getComicDetails(String url);
     }
