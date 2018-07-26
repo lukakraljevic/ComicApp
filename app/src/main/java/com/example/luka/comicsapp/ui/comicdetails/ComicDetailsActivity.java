@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
 import com.example.luka.comicsapp.base.BaseActivity;
-import com.example.luka.comicsapp.base.IBasePresenter;
+import com.example.luka.comicsapp.base.ViewPresenter;
 import com.example.luka.comicsapp.di.activity.ActivityComponent;
 import com.example.luka.comicsapp.ui.comics.ComicsActivity;
 import com.example.luka.comicsapp.ui.utils.ImageLoader;
@@ -74,6 +74,9 @@ public class ComicDetailsActivity extends BaseActivity implements ComicDetailsCo
 
         initAdapter();
 
+        charactersLabel.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(manager);
     }
@@ -108,9 +111,9 @@ public class ComicDetailsActivity extends BaseActivity implements ComicDetailsCo
 
     @Override
     public void showComicDetails(ComicDetailsViewModel comicDetails) {
-        if (comicDetails.characters.isEmpty()) {
-            charactersLabel.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.GONE);
+        if (!comicDetails.characters.isEmpty()) {
+            charactersLabel.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
         }
 
         adapter.setData(comicDetails.characters);
@@ -118,7 +121,7 @@ public class ComicDetailsActivity extends BaseActivity implements ComicDetailsCo
     }
 
     @Override
-    public IBasePresenter getPresenter() {
+    public ViewPresenter getPresenter() {
         return presenter;
     }
 

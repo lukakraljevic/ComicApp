@@ -26,36 +26,6 @@ public final class ComicsPresenter extends BasePresenter<ComicContract.View> imp
     }
 
     @Override
-    public void start() {
-        //on start logic
-    }
-
-    @Override
-    public void activate() {
-
-    }
-
-    @Override
-    public void deactivate() {
-
-    }
-
-    @Override
-    public void stop() {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public void back() {
-
-    }
-
-    @Override
     public void getComics(boolean isRefreshing) {
 
         if (isLoading) return;

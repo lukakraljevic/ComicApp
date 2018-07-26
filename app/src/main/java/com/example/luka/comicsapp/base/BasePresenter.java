@@ -1,6 +1,6 @@
 package com.example.luka.comicsapp.base;
 
-public abstract class BasePresenter<T extends BaseView> implements IBasePresenter<T> {
+public abstract class BasePresenter<T extends BaseView> implements ViewPresenter<T> {
 
     protected T view;
 
@@ -9,4 +9,27 @@ public abstract class BasePresenter<T extends BaseView> implements IBasePresente
         this.view = view;
     }
 
+    @Override
+    public void start() {
+    }
+
+    @Override
+    public void activate() {
+    }
+
+    @Override
+    public void deactivate() {
+    }
+
+    @Override
+    public void stop() {
+    }
+
+    @Override
+    public void destroy() {
+    }
+
+    @Override
+    public void back() {
+    }
 }

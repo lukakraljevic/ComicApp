@@ -39,34 +39,4 @@ public final class ComicDetailsPresenter extends BasePresenter<ComicDetailsContr
     public void getComicDetails(String url) {
         comicDetailsUseCase.execute(url, getComicDetailsCallback());
     }
-
-    @Override
-    public void start() {
-        //on start logic
-    }
-
-    @Override
-    public void activate() {
-
-    }
-
-    @Override
-    public void deactivate() {
-
-    }
-
-    @Override
-    public void stop() {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
-    @Override
-    public void back() {
-
-    }
 }

@@ -2,7 +2,7 @@ package com.example.luka.comicsapp.ui.comics;
 
 
 import com.example.luka.comicsapp.base.BaseView;
-import com.example.luka.comicsapp.base.IBasePresenter;
+import com.example.luka.comicsapp.base.ViewPresenter;
 
 public interface ComicContract {
 
@@ -13,7 +13,7 @@ public interface ComicContract {
         void alertErrorMessage();
     }
 
-    interface Presenter extends IBasePresenter<View> {
+    interface Presenter extends ViewPresenter<View> {
 
         void getComics(boolean isRefreshing);
     }

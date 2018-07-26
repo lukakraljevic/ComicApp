@@ -2,7 +2,6 @@ package com.example.luka.comicsapp.ui.comics;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,7 @@ import android.widget.Toast;
 import com.example.domain.model.Comic;
 import com.example.luka.comicsapp.R;
 import com.example.luka.comicsapp.base.BaseActivity;
-import com.example.luka.comicsapp.base.IBasePresenter;
+import com.example.luka.comicsapp.base.ViewPresenter;
 import com.example.luka.comicsapp.di.activity.ActivityComponent;
 import com.example.luka.comicsapp.ui.comicdetails.ComicDetailsActivity;
 import com.example.luka.comicsapp.ui.listener.ComicClickListener;
@@ -101,7 +100,7 @@ public class ComicsActivity extends BaseActivity implements ComicContract.View, 
     }
 
     @Override
-    public IBasePresenter getPresenter() {
+    public ViewPresenter getPresenter() {
         return presenter;
     }
 

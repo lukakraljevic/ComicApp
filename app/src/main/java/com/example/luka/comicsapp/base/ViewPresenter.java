@@ -1,6 +1,6 @@
 package com.example.luka.comicsapp.base;
 
-public interface IBasePresenter<T> {
+public interface ViewPresenter<T> {
 
     void setView(T view);
 
