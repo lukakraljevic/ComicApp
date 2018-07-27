@@ -6,6 +6,10 @@ dependencies {
     //dagger
     implementation "com.google.dagger:dagger-android-support:$daggerLib"
     implementation "com.google.dagger:dagger:$daggerLib"
+
+    //rxjava
+    implementation "io.reactivex.rxjava2:rxjava:$rxjavaLib"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroidLib"
 }
 
 sourceCompatibility = "1.7"

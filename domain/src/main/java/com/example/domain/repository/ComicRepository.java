@@ -1,14 +1,15 @@
 package com.example.domain.repository;
 
-import com.example.domain.listener.RequestCallback;
 import com.example.domain.model.Comic;
 import com.example.domain.model.ComicDetails;
 
 import java.util.List;
 
+import io.reactivex.Single;
+
 public interface ComicRepository {
 
-    void fetchTrending(int page, RequestCallback<List<Comic>> callback);
+    Single<List<Comic>> fetchTrending(int page);
 
-    void getComicDetails(String url, RequestCallback<ComicDetails> callback);
+    Single<ComicDetails> getComicDetails(String url);
 }

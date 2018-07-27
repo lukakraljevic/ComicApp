@@ -1,25 +1,18 @@
 package com.example.data;
 
-import com.example.data.apimodel.comic.ComicApiModel;
-import com.example.data.apimodel.comic.ComicResponse;
-import com.example.data.apimodel.comicdetails.ComicDetailsApiModel;
-import com.example.data.apimodel.comicdetails.ComicDetailsResponse;
 import com.example.data.mappers.ComicDetailsMapper;
 import com.example.data.mappers.ComicMapper;
 import com.example.data.networking.ComicService;
-import com.example.domain.listener.RequestCallback;
 import com.example.domain.model.Comic;
 import com.example.domain.model.ComicDetails;
 import com.example.domain.repository.ComicRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 
 public class ComicRepositoryImpl implements ComicRepository {
 
@@ -38,58 +31,22 @@ public class ComicRepositoryImpl implements ComicRepository {
     }
 
     @Override
-    public void fetchTrending(final int page, final RequestCallback<List<Comic>> callback) {
-        comicService.getComics(API_KEY, FORMAT, LIMIT, page * LIMIT).enqueue(new Callback<ComicResponse>() {
-            @Override
-            public void onResponse(Call<ComicResponse> call, Response<ComicResponse> response) {
-                final ComicResponse body = response.body();
-
-                if (body == null) {
-                    return;
-                }
-
-                final List<Comic> comics = new ArrayList<>();
-
-                for (ComicApiModel comic : body.comics) {
-                    comics.add(comicMapper.mapComicsToModel(comic));
-                }
-
-                callback.onSuccess(comics);
-            }
-
-            @Override
-            public void onFailure(Call<ComicResponse> call, Throwable t) {
-                callback.onError(t);
-            }
-        });
+    public Single<List<Comic>> fetchTrending(final int page) {
+        return comicService.getComics(API_KEY, FORMAT, LIMIT, page * LIMIT)
+                .subscribeOn(Schedulers.io())
+                .map(comicMapper::mapComicsToModel);
     }
 
     @Override
-    public void getComicDetails(String url, final RequestCallback<ComicDetails> callback) {
+    public Single<ComicDetails> getComicDetails(String url) {
         String[] parts = url.split("/");
 
-        if (parts.length == 0) return;
+        if (parts.length == 0) return null;
 
         String id = parts[parts.length - 1];
 
-        comicService.getComicDetails(id, API_KEY, FORMAT).enqueue(new Callback<ComicDetailsResponse>() {
-            @Override
-            public void onResponse(Call<ComicDetailsResponse> call, Response<ComicDetailsResponse> response) {
-                final ComicDetailsApiModel body = response.body().comicDetails;
-
-                if (body == null) {
-                    return;
-                }
-
-                ComicDetails comicDetails = comicDetailsMapper.mapComicDetailsToModel(body);
-
-                callback.onSuccess(comicDetails);
-            }
-
-            @Override
-            public void onFailure(Call<ComicDetailsResponse> call, Throwable t) {
-                callback.onError(t);
-            }
-        });
+        return comicService.getComicDetails(id, API_KEY, FORMAT)
+                    .subscribeOn(Schedulers.io())
+                    .map(comicDetailsMapper::mapComicDetailsToModel);
     }
 }

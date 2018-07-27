@@ -1,8 +1,8 @@
 package com.example.domain.usecase;
 
-import com.example.domain.listener.RequestCallback;
+import io.reactivex.Single;
 
-public interface UseCaseWithParam<P, T> {
+public interface UseCaseWithParam<Param, T> {
 
-    void execute(P param, RequestCallback<T> callback);
+    Single<T> execute(Param param);
 }

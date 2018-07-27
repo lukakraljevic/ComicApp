@@ -1,7 +1,6 @@
 package com.example.domain.usecase;
 
 
-import com.example.domain.listener.RequestCallback;
 import com.example.domain.model.Comic;
 import com.example.domain.repository.ComicRepository;
 
@@ -9,6 +8,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import io.reactivex.Single;
 
 @Singleton
 public final class GetComicsUseCase implements UseCaseWithParam<Integer, List<Comic>> {
@@ -21,8 +22,8 @@ public final class GetComicsUseCase implements UseCaseWithParam<Integer, List<Co
     }
 
     @Override
-    public void execute(final Integer page, final RequestCallback<List<Comic>> callback) {
-        comicRepository.fetchTrending(page, callback);
+    public Single<List<Comic>> execute(final Integer page) {
+        return comicRepository.fetchTrending(page);
     }
 
 }

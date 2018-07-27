@@ -1,6 +1,5 @@
 package com.example.luka.comicsapp.ui.comics;
 
-import com.example.domain.listener.RequestCallback;
 import com.example.domain.model.Comic;
 import com.example.domain.usecase.GetComicsUseCase;
 import com.example.domain.usecase.UseCaseWithParam;
@@ -10,6 +9,8 @@ import com.example.luka.comicsapp.ui.mappers.ComicViewModelMapper;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public final class ComicsPresenter extends BasePresenter<ComicContract.View> implements ComicContract.Presenter {
 
@@ -36,22 +37,18 @@ public final class ComicsPresenter extends BasePresenter<ComicContract.View> imp
             page = 0;
         }
 
-        comicUseCase.execute(page, getComicCallback());
+        comicUseCase.execute(page).observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(this::onSuccess, this::onError);
+
         page++;
     }
 
-    private RequestCallback<List<Comic>> getComicCallback() {
-        return new RequestCallback<List<Comic>>() {
-            @Override
-            public void onSuccess(List<Comic> value) {
-                view.renderComics(comicViewModelMapper.mapToComicViewModel(value), page);
-                isLoading = false;
-            }
+    private void onSuccess(List<Comic> value) {
+        view.renderComics(comicViewModelMapper.mapToComicViewModel(value), page);
+        isLoading = false;
+    }
 
-            @Override
-            public void onError(Throwable throwable) {
-                view.alertErrorMessage();
-            }
-        };
+    private void onError(Throwable throwable) {
+        view.alertErrorMessage();
     }
 }
