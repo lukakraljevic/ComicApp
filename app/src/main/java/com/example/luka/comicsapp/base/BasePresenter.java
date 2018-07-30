@@ -1,7 +1,5 @@
 package com.example.luka.comicsapp.base;
 
-import android.util.Log;
-
 import com.example.luka.comicsapp.di.activity.ThreadingModule;
 
 import javax.inject.Inject;
@@ -81,7 +79,7 @@ public abstract class BasePresenter<View extends BaseView, ViewState> implements
     }
 
     private void handleError(Throwable t) {
-        Log.d("Error", t.getMessage());
+        t.printStackTrace();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.domain.repository;
 
 import com.example.domain.model.Comic;
 import com.example.domain.model.ComicDetails;
+import com.example.domain.model.ComicDetailsParam;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public interface ComicRepository {
 
     Single<List<Comic>> fetchTrending(int page);
 
-    Single<ComicDetails> getComicDetails(String url);
+    Single<ComicDetails> getComicDetails(ComicDetailsParam comicDetailsParam);
 }

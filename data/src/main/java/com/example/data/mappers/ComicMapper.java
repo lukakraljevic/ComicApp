@@ -1,7 +1,5 @@
 package com.example.data.mappers;
 
-import android.support.annotation.Nullable;
-
 import com.example.data.apimodel.comic.ComicApiModel;
 import com.example.data.apimodel.comic.ComicResponse;
 import com.example.domain.model.Comic;
@@ -19,11 +17,10 @@ public final class ComicMapper {
     public ComicMapper() {
     }
 
-    @Nullable
     public List<Comic> mapComicsToModel(ComicResponse comicResponse) {
 
         if (comicResponse == null) {
-            return null;
+            return new ArrayList<>();
         }
 
         final List<Comic> comics = new ArrayList<>();

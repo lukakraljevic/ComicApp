@@ -14,6 +14,6 @@ public interface ComicService {
     Single<ComicResponse> getComics(@Query("api_key") String apiKey, @Query("format") String format, @Query("limit") int limit,
                                     @Query("offset") int offset);
 
-    @GET("/api/episode/{id}")
-    Single<ComicDetailsResponse> getComicDetails(@Path("id") String id, @Query("api_key") String apiKey, @Query("format") String format);
+    @GET("/api/{type}/{id}")
+    Single<ComicDetailsResponse> getComicDetails(@Path("id") String id,@Path("type") String type, @Query("api_key") String apiKey, @Query("format") String format);
 }

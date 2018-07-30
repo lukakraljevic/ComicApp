@@ -83,7 +83,7 @@ public class ComicsActivity extends BaseActivity implements ComicContract.View, 
         swipeContainer.setRefreshing(false);
     }
 
-    public void alertErrorMessage(Throwable t) {
+    private void alertErrorMessage(Throwable t) {
         Toast.makeText(getApplicationContext(), errorText, Toast.LENGTH_SHORT).show();
     }
 
