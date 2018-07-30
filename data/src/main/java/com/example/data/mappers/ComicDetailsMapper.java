@@ -1,5 +1,7 @@
 package com.example.data.mappers;
 
+import android.support.annotation.Nullable;
+
 import com.example.data.apimodel.comicdetails.ComicCharacterApiModel;
 import com.example.data.apimodel.comicdetails.ComicDetailsApiModel;
 import com.example.data.apimodel.comicdetails.ComicDetailsResponse;
@@ -19,6 +21,7 @@ public final class ComicDetailsMapper {
     public ComicDetailsMapper() {
     }
 
+    @Nullable
     public ComicDetails mapComicDetailsToModel(ComicDetailsResponse comicDetailsResponse) {
 
         if (comicDetailsResponse == null) return null;

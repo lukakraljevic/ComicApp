@@ -1,5 +1,7 @@
 package com.example.luka.comicsapp.base;
 
+import android.util.Log;
+
 import com.example.luka.comicsapp.di.activity.ThreadingModule;
 
 import javax.inject.Inject;
@@ -32,7 +34,7 @@ public abstract class BasePresenter<View extends BaseView, ViewState> implements
     protected final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
-    public void setView(View view) {
+    public final void setView(final View view) {
         this.view = view;
     }
 
@@ -66,7 +68,7 @@ public abstract class BasePresenter<View extends BaseView, ViewState> implements
         compositeDisposable.add(single
                 .subscribeOn(backgroundScheduler)
                 .observeOn(mainThreadScheduler)
-                .subscribe(this::acceptViewState));
+                .subscribe(this::acceptViewState, this::handleError));
     }
 
     private void acceptViewState(Consumer<ViewState> consumer) {
@@ -76,6 +78,10 @@ public abstract class BasePresenter<View extends BaseView, ViewState> implements
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void handleError(Throwable t) {
+        Log.d("Error", t.getMessage());
     }
 
     @Override

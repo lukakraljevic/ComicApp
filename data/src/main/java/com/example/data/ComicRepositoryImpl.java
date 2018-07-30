@@ -1,5 +1,7 @@
 package com.example.data;
 
+import android.support.annotation.Nullable;
+
 import com.example.data.mappers.ComicDetailsMapper;
 import com.example.data.mappers.ComicMapper;
 import com.example.data.networking.ComicService;
@@ -36,6 +38,7 @@ public class ComicRepositoryImpl implements ComicRepository {
     }
 
     @Override
+    @Nullable
     public Single<ComicDetails> getComicDetails(String url) {
         String[] parts = url.split("/");
 
@@ -44,6 +47,6 @@ public class ComicRepositoryImpl implements ComicRepository {
         String id = parts[parts.length - 1];
 
         return comicService.getComicDetails(id, API_KEY, FORMAT)
-                    .map(comicDetailsMapper::mapComicDetailsToModel);
+                .map(comicDetailsMapper::mapComicDetailsToModel);
     }
 }
