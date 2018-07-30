@@ -1,10 +1,15 @@
 package com.example.luka.comicsapp.ui.comics;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.domain.model.Comic;
@@ -15,6 +20,9 @@ import com.example.luka.comicsapp.di.activity.ActivityComponent;
 import com.example.luka.comicsapp.ui.comicdetails.ComicDetailsActivity;
 import com.example.luka.comicsapp.ui.listener.ComicClickListener;
 import com.example.luka.comicsapp.ui.listener.LazyLoadingListener;
+import com.jakewharton.rxbinding2.widget.RxSearchView;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -31,6 +39,7 @@ public class ComicsActivity extends BaseActivity implements ComicContract.View, 
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeContainer;
+    SearchView searchView;
     @BindString(R.string.error_text)
     String errorText;
 
@@ -42,6 +51,24 @@ public class ComicsActivity extends BaseActivity implements ComicContract.View, 
         initUi();
         getComics(true);
         addDisposable(presenter.viewState().subscribe(this::renderComics, this::alertErrorMessage));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager != null ? searchManager.getSearchableInfo(getComponentName()) : null);
+
+        addDisposable(RxSearchView.queryTextChanges(searchView)
+                .debounce(200, TimeUnit.MILLISECONDS)
+                .map(CharSequence::toString)
+                .observeOn(mainThreadScheduler)
+                .subscribe(query -> presenter.searchComics(query)));
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

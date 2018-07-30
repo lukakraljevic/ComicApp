@@ -1,8 +1,11 @@
 package com.example.domain.model;
 
+import java.util.Collections;
 import java.util.List;
 
 public final class ComicDetails {
+
+    public static final ComicDetails EMPTY = new ComicDetails(-1, "","","", Collections.<ComicCharacter>emptyList());
 
     public final int id;
     public final String description;

@@ -5,6 +5,7 @@ import com.example.data.mappers.ComicMapper;
 import com.example.data.networking.ComicService;
 import com.example.domain.model.Comic;
 import com.example.domain.model.ComicDetails;
+import com.example.domain.model.ComicSearchParam;
 import com.example.domain.repository.ComicRepository;
 
 import java.util.List;
@@ -42,8 +43,16 @@ public class ComicRepositoryImpl implements ComicRepository {
         if (parts.length == 0) return null;
 
         String id = parts[parts.length - 1];
+        String type = parts[parts.length - 2];
 
-        return comicService.getComicDetails(id, API_KEY, FORMAT)
+        return comicService.getComicDetails(id, type, API_KEY, FORMAT)
                     .map(comicDetailsMapper::mapComicDetailsToModel);
+    }
+
+    @Override
+    public Single<List<Comic>> searchComics(ComicSearchParam comicSearchParam) {
+        return comicService.searchComics(API_KEY, FORMAT, LIMIT, comicSearchParam.page * LIMIT,
+                comicSearchParam.query)
+                .map(comicMapper::mapComicsToModel);
     }
 }

@@ -12,5 +12,7 @@ public interface ComicContract {
     interface Presenter extends ViewPresenter<View, ComicViewState> {
 
         void getComics(boolean isRefreshing);
+
+        void searchComics(String query);
     }
 }

@@ -61,4 +61,5 @@ dependencies {
     //rxjava
     implementation "io.reactivex.rxjava2:rxjava:$rxjavaLib"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroidLib"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rxbindingLib"
 }

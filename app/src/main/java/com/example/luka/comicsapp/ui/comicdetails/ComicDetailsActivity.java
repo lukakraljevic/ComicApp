@@ -86,7 +86,7 @@ public class ComicDetailsActivity extends BaseActivity implements ComicDetailsCo
     private void displayData() {
         Comic comic = (Comic) getIntent().getSerializableExtra(ComicsActivity.KEY_DETAILS);
 
-        nameText.setText(String.format(Locale.getDefault(), episodeName, comic.episodeName));
+        nameText.setText(String.format(Locale.getDefault(), episodeName, comic.name));
         SpannableString spannableDescription = new SpannableString(Html.fromHtml(comic.description));
         descriptionText.setText(spannableDescription);
 
