@@ -6,9 +6,12 @@ import android.support.annotation.Nullable;
 import com.example.luka.comicsapp.di.activity.DaggerActivity;
 
 import butterknife.ButterKnife;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 public abstract class BaseActivity extends DaggerActivity implements BaseView {
 
+    protected final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,9 +27,14 @@ public abstract class BaseActivity extends DaggerActivity implements BaseView {
         getPresenter().start();
     }
 
+    protected void addDisposable(Disposable disposable){
+        compositeDisposable.add(disposable);
+    }
+
     @Override
     protected void onDestroy() {
         if (isFinishing()) {
+            compositeDisposable.clear();
             getPresenter().destroy();
         }
 

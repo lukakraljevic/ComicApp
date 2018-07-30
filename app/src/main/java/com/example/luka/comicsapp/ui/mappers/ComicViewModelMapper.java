@@ -1,7 +1,7 @@
 package com.example.luka.comicsapp.ui.mappers;
 
 import com.example.domain.model.Comic;
-import com.example.luka.comicsapp.ui.comics.ComicViewModel;
+import com.example.luka.comicsapp.ui.viewmodel.ComicViewModel;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public final class ComicViewModelMapper {
     public ComicViewModelMapper() {
     }
 
-    public ComicViewModel mapToComicViewModel(List<Comic> comics) {
-        return new ComicViewModel(comics);
+    public ComicViewModel mapToComicViewModel(List<Comic> comics, int page) {
+        return new ComicViewModel(comics, page);
     }
 }

@@ -77,6 +77,8 @@ public class ComicDetailsActivity extends BaseActivity implements ComicDetailsCo
         charactersLabel.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
 
+        addDisposable(presenter.viewState().subscribe(this::showComicDetails, this::alertErrorMessage));
+
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(manager);
     }
@@ -103,21 +105,18 @@ public class ComicDetailsActivity extends BaseActivity implements ComicDetailsCo
         snapHelper.attachToRecyclerView(recyclerView);
     }
 
-
-    @Override
-    public void alertErrorMessage() {
+    public void alertErrorMessage(Throwable t) {
         Toast.makeText(getApplicationContext(), errorText, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void showComicDetails(ComicDetailsViewModel comicDetails) {
-        if (!comicDetails.characters.isEmpty()) {
+    public void showComicDetails(ComicDetailsViewState comicDetailsViewState) {
+        if (!comicDetailsViewState.comicDetailsViewModel.characters.isEmpty()) {
             charactersLabel.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
         }
 
-        adapter.setData(comicDetails.characters);
-        ImageLoader.loadImage(comicDetails.imageUrl, headerImageView, R.mipmap.ic_launcher);
+        adapter.setData(comicDetailsViewState.comicDetailsViewModel.characters);
+        ImageLoader.loadImage(comicDetailsViewState.comicDetailsViewModel.imageUrl, headerImageView, R.mipmap.ic_launcher);
     }
 
     @Override

@@ -7,13 +7,9 @@ public interface ComicDetailsContract {
 
 
     interface View extends BaseView {
-
-        void showComicDetails(ComicDetailsViewModel comicDetails);
-
-        void alertErrorMessage();
     }
 
-    interface Presenter extends ViewPresenter<View> {
+    interface Presenter extends ViewPresenter<View, ComicDetailsViewState> {
 
         void getComicDetails(String url);
     }

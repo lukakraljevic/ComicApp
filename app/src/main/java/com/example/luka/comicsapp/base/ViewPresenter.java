@@ -1,8 +1,10 @@
 package com.example.luka.comicsapp.base;
 
-public interface ViewPresenter<T> {
+import io.reactivex.Flowable;
 
-    void setView(T view);
+public interface ViewPresenter<View, Data> {
+
+    void setView(View view);
 
     void start();
 
@@ -15,4 +17,6 @@ public interface ViewPresenter<T> {
     void destroy();
 
     void back();
+
+    Flowable<Data> viewState();
 }

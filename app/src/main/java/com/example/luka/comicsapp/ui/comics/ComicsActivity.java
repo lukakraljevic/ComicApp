@@ -41,6 +41,7 @@ public class ComicsActivity extends BaseActivity implements ComicContract.View, 
         super.onCreate(savedInstanceState);
         initUi();
         getComics(true);
+        addDisposable(presenter.viewState().subscribe(this::renderComics, this::alertErrorMessage));
     }
 
     @Override
@@ -60,7 +61,6 @@ public class ComicsActivity extends BaseActivity implements ComicContract.View, 
         initAdapter();
     }
 
-
     private void initAdapter() {
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
@@ -78,14 +78,12 @@ public class ComicsActivity extends BaseActivity implements ComicContract.View, 
         startActivity(comicDet);
     }
 
-    @Override
-    public void renderComics(ComicViewModel param, int page) {
-        adapter.addData(param.comicList, page);
+    private void renderComics(ComicViewState comicViewState) {
+        adapter.addData(comicViewState.comicViewModel.comicList, comicViewState.comicViewModel.page);
         swipeContainer.setRefreshing(false);
     }
 
-    @Override
-    public void alertErrorMessage() {
+    public void alertErrorMessage(Throwable t) {
         Toast.makeText(getApplicationContext(), errorText, Toast.LENGTH_SHORT).show();
     }
 
@@ -106,6 +104,6 @@ public class ComicsActivity extends BaseActivity implements ComicContract.View, 
 
     @Override
     protected void inject(ActivityComponent activityComponent) {
-        getActivityComponent().inject(this);
+        activityComponent.inject(this);
     }
 }

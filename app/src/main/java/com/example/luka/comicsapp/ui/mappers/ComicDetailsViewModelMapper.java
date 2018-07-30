@@ -1,7 +1,7 @@
 package com.example.luka.comicsapp.ui.mappers;
 
 import com.example.domain.model.ComicDetails;
-import com.example.luka.comicsapp.ui.comicdetails.ComicDetailsViewModel;
+import com.example.luka.comicsapp.ui.viewmodel.ComicDetailsViewModel;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

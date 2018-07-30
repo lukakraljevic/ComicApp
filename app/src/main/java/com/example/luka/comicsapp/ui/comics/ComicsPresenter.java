@@ -5,14 +5,16 @@ import com.example.domain.usecase.GetComicsUseCase;
 import com.example.domain.usecase.UseCaseWithParam;
 import com.example.luka.comicsapp.base.BasePresenter;
 import com.example.luka.comicsapp.ui.mappers.ComicViewModelMapper;
+import com.example.luka.comicsapp.ui.viewmodel.ComicViewModel;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.Single;
+import io.reactivex.functions.Consumer;
 
-public final class ComicsPresenter extends BasePresenter<ComicContract.View> implements ComicContract.Presenter {
+public final class ComicsPresenter extends BasePresenter<ComicContract.View, ComicViewState> implements ComicContract.Presenter {
 
     private final UseCaseWithParam<Integer, List<Comic>> comicUseCase;
     private final ComicViewModelMapper comicViewModelMapper;
@@ -37,18 +39,27 @@ public final class ComicsPresenter extends BasePresenter<ComicContract.View> imp
             page = 0;
         }
 
-        comicUseCase.execute(page).observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(this::onSuccess, this::onError);
+        query(queryComics());
 
         page++;
     }
 
-    private void onSuccess(List<Comic> value) {
-        view.renderComics(comicViewModelMapper.mapToComicViewModel(value), page);
-        isLoading = false;
+    private Single<Consumer<ComicViewState>> queryComics() {
+        return comicUseCase.execute(page)
+                .map(comics -> comicViewModelMapper.mapToComicViewModel(comics, page))
+                .map(this::onSuccess);
     }
 
-    private void onError(Throwable throwable) {
-        view.alertErrorMessage();
+    private Consumer<ComicViewState> onSuccess(ComicViewModel comicViewModel) {
+        return viewState -> {
+            viewState.comicViewModel = comicViewModel;
+            viewState.isLoading = false;
+            isLoading = false;
+        };
+    }
+
+    @Override
+    public ComicViewState initialViewState() {
+        return new ComicViewState();
     }
 }

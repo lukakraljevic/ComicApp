@@ -12,7 +12,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 
 public class ComicRepositoryImpl implements ComicRepository {
 
@@ -33,7 +32,6 @@ public class ComicRepositoryImpl implements ComicRepository {
     @Override
     public Single<List<Comic>> fetchTrending(final int page) {
         return comicService.getComics(API_KEY, FORMAT, LIMIT, page * LIMIT)
-                .subscribeOn(Schedulers.io())
                 .map(comicMapper::mapComicsToModel);
     }
 
@@ -46,7 +44,6 @@ public class ComicRepositoryImpl implements ComicRepository {
         String id = parts[parts.length - 1];
 
         return comicService.getComicDetails(id, API_KEY, FORMAT)
-                    .subscribeOn(Schedulers.io())
                     .map(comicDetailsMapper::mapComicDetailsToModel);
     }
 }

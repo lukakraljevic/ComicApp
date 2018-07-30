@@ -7,13 +7,9 @@ import com.example.luka.comicsapp.base.ViewPresenter;
 public interface ComicContract {
 
     interface View extends BaseView {
-
-        void renderComics(ComicViewModel comics, int page);
-
-        void alertErrorMessage();
     }
 
-    interface Presenter extends ViewPresenter<View> {
+    interface Presenter extends ViewPresenter<View, ComicViewState> {
 
         void getComics(boolean isRefreshing);
     }

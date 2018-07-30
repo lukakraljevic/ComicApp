@@ -5,15 +5,18 @@ import com.example.domain.usecase.GetComicDetailsUseCase;
 import com.example.domain.usecase.UseCaseWithParam;
 import com.example.luka.comicsapp.base.BasePresenter;
 import com.example.luka.comicsapp.ui.mappers.ComicDetailsViewModelMapper;
+import com.example.luka.comicsapp.ui.viewmodel.ComicDetailsViewModel;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.Single;
+import io.reactivex.functions.Consumer;
 
-public final class ComicDetailsPresenter extends BasePresenter<ComicDetailsContract.View> implements ComicDetailsContract.Presenter {
+public final class ComicDetailsPresenter extends BasePresenter<ComicDetailsContract.View, ComicDetailsViewState> implements ComicDetailsContract.Presenter {
 
     private final UseCaseWithParam<String, ComicDetails> comicDetailsUseCase;
     private final ComicDetailsViewModelMapper comicDetailsViewModelMapper;
+    private String url;
 
     @Inject
     public ComicDetailsPresenter(GetComicDetailsUseCase comicDetailsUseCase,
@@ -24,16 +27,24 @@ public final class ComicDetailsPresenter extends BasePresenter<ComicDetailsContr
 
 
     @Override
-    public void getComicDetails(String url) {
-        comicDetailsUseCase.execute(url).observeOn(AndroidSchedulers.mainThread())
-                                        .subscribe(this::onSuccess, this::onError);
+    public void getComicDetails(final String url) {
+        this.url = url;
+        query(queryComicDetails());
     }
 
-    private void onSuccess(final ComicDetails value) {
-        view.showComicDetails(comicDetailsViewModelMapper.mapToComicDetailsViewModel(value));
+    private Single<Consumer<ComicDetailsViewState>> queryComicDetails() {
+        return comicDetailsUseCase.execute(url)
+                .map(comicDetailsViewModelMapper::mapToComicDetailsViewModel)
+                .map(this::onSuccess);
     }
 
-    private void onError(final Throwable error) {
-        view.alertErrorMessage();
+    private Consumer<ComicDetailsViewState> onSuccess(ComicDetailsViewModel comicDetailsViewModel) {
+        return viewState -> viewState.comicDetailsViewModel = comicDetailsViewModel;
+    }
+
+
+    @Override
+    public ComicDetailsViewState initialViewState() {
+        return new ComicDetailsViewState();
     }
 }
