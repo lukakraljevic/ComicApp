@@ -25,7 +25,7 @@ public final class ComicMapper {
 
         final List<Comic> comics = new ArrayList<>();
 
-        for (ComicApiModel apiModel : comicResponse.comics) {
+        for (final ComicApiModel apiModel : comicResponse.comics) {
             comics.add(new Comic(apiModel.id, apiModel.apiDetailUrl, apiModel.airDate, apiModel.dateAdded, apiModel.description,
                     apiModel.comicSeries == null ? "" : apiModel.comicSeries.name,
                     apiModel.image == null ? "" : apiModel.image.smallUrl,

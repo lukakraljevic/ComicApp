@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class BaseActivity extends DaggerActivity implements BaseView {
 
-    protected final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     @Named(ThreadingModule.MAIN_SCHEDULER)

@@ -54,19 +54,19 @@ public class ComicsActivity extends BaseActivity implements ComicContract.View, 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        final MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
 
         searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager != null ? searchManager.getSearchableInfo(getComponentName()) : null);
 
         addDisposable(RxSearchView.queryTextChanges(searchView)
                 .debounce(200, TimeUnit.MILLISECONDS)
                 .map(CharSequence::toString)
                 .observeOn(mainThreadScheduler)
-                .subscribe(query -> presenter.searchComics(query)));
+                .subscribe(query -> presenter.searchComics(query), this::alertErrorMessage));
 
         return super.onCreateOptionsMenu(menu);
     }
