@@ -62,14 +62,14 @@ public abstract class BasePresenter<View extends BaseView, ViewState> implements
     public void back() {
     }
 
-    protected void query(Single<Consumer<ViewState>> single) {
+    protected void query(final Single<Consumer<ViewState>> single) {
         compositeDisposable.add(single
                 .subscribeOn(backgroundScheduler)
                 .observeOn(mainThreadScheduler)
                 .subscribe(this::acceptViewState, this::handleError));
     }
 
-    private void acceptViewState(Consumer<ViewState> consumer) {
+    private void acceptViewState(final Consumer<ViewState> consumer) {
         try {
             consumer.accept(viewState);
             viewStateFlowable.onNext(viewState);

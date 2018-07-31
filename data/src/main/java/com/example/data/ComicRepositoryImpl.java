@@ -37,8 +37,8 @@ public class ComicRepositoryImpl implements ComicRepository {
     }
 
     @Override
-    public Single<ComicDetails> getComicDetails(ComicDetailsParam comicDetailsParam) {
-        return comicService.getComicDetails(comicDetailsParam.id, comicDetailsParam.type, API_KEY, FORMAT)
+    public Single<ComicDetails> getDetails(ComicDetailsParam comicDetailsParam) {
+        return comicService.getDetails(comicDetailsParam.id, comicDetailsParam.type, API_KEY, FORMAT)
                 .map(comicDetailsMapper::mapComicDetailsToModel);
     }
 }

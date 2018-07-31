@@ -20,7 +20,7 @@ public final class GetComicDetailsUseCase implements UseCaseWithParam<ComicDetai
     }
 
     @Override
-    public Single<ComicDetails> execute(ComicDetailsParam comicDetailsParam) {
-        return comicRepository.getComicDetails(comicDetailsParam);
+    public Single<ComicDetails> execute(final ComicDetailsParam comicDetailsParam) {
+        return comicRepository.getDetails(comicDetailsParam);
     }
 }

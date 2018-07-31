@@ -12,5 +12,5 @@ public interface ComicRepository {
 
     Single<List<Comic>> fetchTrending(int page);
 
-    Single<ComicDetails> getComicDetails(ComicDetailsParam comicDetailsParam);
+    Single<ComicDetails> getDetails(ComicDetailsParam comicDetailsParam);
 }

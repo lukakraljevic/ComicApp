@@ -109,7 +109,7 @@ public class ComicDetailsActivity extends BaseActivity implements ComicDetailsCo
         Toast.makeText(getApplicationContext(), errorText, Toast.LENGTH_SHORT).show();
     }
 
-    private void showComicDetails(ComicDetailsViewState comicDetailsViewState) {
+    private void showComicDetails(final ComicDetailsViewState comicDetailsViewState) {
         if (!comicDetailsViewState.comicDetailsViewModel.characters.isEmpty()) {
             charactersLabel.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);

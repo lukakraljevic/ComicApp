@@ -26,11 +26,15 @@ public final class ComicMapper {
         final List<Comic> comics = new ArrayList<>();
 
         for (ComicApiModel apiModel : comicResponse.comics) {
-            comics.add(new Comic(apiModel.id, apiModel.apiDetailUrl, apiModel.airDate, apiModel.description,
-                    apiModel.comicSeries.name, apiModel.image.smallUrl, apiModel.image.screenUrl,
-                    apiModel.episodeNumber, apiModel.dateLastUpdated, apiModel.name));
+            comics.add(getComic(apiModel));
         }
 
         return comics;
+    }
+
+    private Comic getComic(ComicApiModel apiModel) {
+        return new Comic(apiModel.id, apiModel.apiDetailUrl, apiModel.airDate, apiModel.description,
+                apiModel.comicSeries.name, apiModel.image.smallUrl, apiModel.image.screenUrl,
+                apiModel.episodeNumber, apiModel.dateLastUpdated, apiModel.name);
     }
 }

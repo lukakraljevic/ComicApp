@@ -15,5 +15,5 @@ public interface ComicService {
                                     @Query("offset") int offset);
 
     @GET("/api/{type}/{id}")
-    Single<ComicDetailsResponse> getComicDetails(@Path("id") String id,@Path("type") String type, @Query("api_key") String apiKey, @Query("format") String format);
+    Single<ComicDetailsResponse> getDetails(@Path("id") String id, @Path("type") String type, @Query("api_key") String apiKey, @Query("format") String format);
 }

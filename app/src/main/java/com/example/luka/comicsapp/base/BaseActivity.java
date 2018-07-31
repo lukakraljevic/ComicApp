@@ -27,7 +27,7 @@ public abstract class BaseActivity extends DaggerActivity implements BaseView {
         getPresenter().start();
     }
 
-    protected void addDisposable(Disposable disposable){
+    protected void addDisposable(Disposable disposable) {
         compositeDisposable.add(disposable);
     }
 

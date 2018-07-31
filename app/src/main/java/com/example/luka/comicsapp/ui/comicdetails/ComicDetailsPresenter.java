@@ -32,7 +32,7 @@ public final class ComicDetailsPresenter extends BasePresenter<ComicDetailsContr
         this.url = url;
         String[] parts = url.split("/");
 
-        if (parts.length == 0) return;
+        if (parts.length < 2) return;
 
         String id = parts[parts.length - 1];
         String type = parts[parts.length - 2];
@@ -40,13 +40,13 @@ public final class ComicDetailsPresenter extends BasePresenter<ComicDetailsContr
         query(queryComicDetails(new ComicDetailsParam(id, type)));
     }
 
-    private Single<Consumer<ComicDetailsViewState>> queryComicDetails(ComicDetailsParam comicDetailsParam) {
+    private Single<Consumer<ComicDetailsViewState>> queryComicDetails(final ComicDetailsParam comicDetailsParam) {
         return comicDetailsUseCase.execute(comicDetailsParam)
                 .map(comicDetailsViewModelMapper::mapToComicDetailsViewModel)
                 .map(this::onSuccess);
     }
 
-    private Consumer<ComicDetailsViewState> onSuccess(ComicDetailsViewModel comicDetailsViewModel) {
+    private Consumer<ComicDetailsViewState> onSuccess(final ComicDetailsViewModel comicDetailsViewModel) {
         return viewState -> viewState.comicDetailsViewModel = comicDetailsViewModel;
     }
 
