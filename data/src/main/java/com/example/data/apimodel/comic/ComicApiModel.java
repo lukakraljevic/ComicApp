@@ -11,6 +11,8 @@ public final class ComicApiModel {
     public final String apiDetailUrl;
     @SerializedName("air_date")
     public final Date airDate;
+    @SerializedName("date_added")
+    public final Date dateAdded;
     public final String description;
     public final ComicImageModel image;
     public final String name;
@@ -21,10 +23,11 @@ public final class ComicApiModel {
     @SerializedName("series")
     public final ComicSeriesApiModel comicSeries;
 
-    public ComicApiModel(int id, String apiDetailUrl, Date airDate, String description, ComicImageModel image, String name, Date dateLastUpdated, int episodeNumber, ComicSeriesApiModel comicSeries) {
+    public ComicApiModel(int id, String apiDetailUrl, Date airDate, Date dateAdded, String description, ComicImageModel image, String name, Date dateLastUpdated, int episodeNumber, ComicSeriesApiModel comicSeries) {
         this.id = id;
         this.apiDetailUrl = apiDetailUrl;
         this.airDate = airDate;
+        this.dateAdded = dateAdded;
         this.description = description;
         this.image = image;
         this.name = name;

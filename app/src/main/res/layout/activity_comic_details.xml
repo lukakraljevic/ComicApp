@@ -60,7 +60,7 @@
 
         <TextView
             android:id="@+id/comic_details_description"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="@dimen/detailsMargin"
@@ -84,7 +84,5 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/detailsMargin"
             app:layout_constraintTop_toBottomOf="@id/comic_details_characters_label" />
-
-
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

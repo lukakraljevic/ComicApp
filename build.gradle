@@ -24,6 +24,9 @@ buildscript {
     ext.testRunnerLib = "1.0.2"
     ext.espressoLib = "3.0.2"
     ext.daggerLib = "2.11"
+    ext.rxjavaLib = "2.1.16"
+    ext.rxandroidLib = "2.0.1"
+    ext.rxbindingLib = "2.1.1"
 }
 
 allprojects {

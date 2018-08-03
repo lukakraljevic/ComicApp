@@ -5,7 +5,7 @@ import com.example.luka.comicsapp.di.application.ApplicationComponent;
 import dagger.Subcomponent;
 
 @ActivityScope
-@Subcomponent(modules = {ActivityModule.class, ActivityPresenterModule.class})
+@Subcomponent(modules = {ActivityModule.class, ActivityPresenterModule.class, ThreadingModule.class})
 public interface ActivityComponent extends ActivityComponentInjects {
 
     @Subcomponent.Builder

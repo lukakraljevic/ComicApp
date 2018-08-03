@@ -2,6 +2,7 @@ package com.example.data.mappers;
 
 import com.example.data.apimodel.comicdetails.ComicCharacterApiModel;
 import com.example.data.apimodel.comicdetails.ComicDetailsApiModel;
+import com.example.data.apimodel.comicdetails.ComicDetailsResponse;
 import com.example.domain.model.ComicCharacter;
 import com.example.domain.model.ComicDetails;
 
@@ -18,11 +19,17 @@ public final class ComicDetailsMapper {
     public ComicDetailsMapper() {
     }
 
-    public ComicDetails mapComicDetailsToModel(ComicDetailsApiModel apiModel) {
+    public ComicDetails mapComicDetailsToModel(ComicDetailsResponse comicDetailsResponse) {
+
+        if (comicDetailsResponse == null) return ComicDetails.EMPTY;
+
+        ComicDetailsApiModel apiModel = comicDetailsResponse.comicDetails;
 
         final List<ComicCharacter> characters = new ArrayList<>();
-        for (ComicCharacterApiModel comicCharacterApiModel : apiModel.characters) {
-            characters.add(createComicCharacter(comicCharacterApiModel));
+        if (apiModel.characters != null) {
+            for (ComicCharacterApiModel comicCharacterApiModel : apiModel.characters) {
+                characters.add(createComicCharacter(comicCharacterApiModel));
+            }
         }
 
         return new ComicDetails(apiModel.id, apiModel.description, apiModel.image.screenUrl,

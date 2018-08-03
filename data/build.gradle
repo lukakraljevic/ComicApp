@@ -18,6 +18,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -40,4 +44,8 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$daggerLib"
     implementation "com.google.dagger:dagger:$daggerLib"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerLib"
+
+    //rxjava
+    implementation "io.reactivex.rxjava2:rxjava:$rxjavaLib"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroidLib"
 }

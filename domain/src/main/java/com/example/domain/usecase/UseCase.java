@@ -1,9 +1,9 @@
 package com.example.domain.usecase;
 
-import com.example.domain.listener.RequestCallback;
+import io.reactivex.Single;
 
 public interface UseCase<T> {
 
-    void execute(RequestCallback<T> callback);
+    Single<T> execute();
 
 }

@@ -1,7 +1,7 @@
 package com.example.domain.usecase;
 
-
 import com.example.domain.model.Comic;
+import com.example.domain.model.ComicSearchParam;
 import com.example.domain.repository.ComicRepository;
 
 import java.util.List;
@@ -12,18 +12,17 @@ import javax.inject.Singleton;
 import io.reactivex.Single;
 
 @Singleton
-public final class GetComicsUseCase implements UseCaseWithParam<Integer, List<Comic>> {
+public class SearchComicsUseCase implements UseCaseWithParam<ComicSearchParam, List<Comic>> {
 
     private final ComicRepository comicRepository;
 
     @Inject
-    public GetComicsUseCase(ComicRepository comicRepository) {
+    public SearchComicsUseCase(ComicRepository comicRepository) {
         this.comicRepository = comicRepository;
     }
 
     @Override
-    public Single<List<Comic>> execute(final Integer page) {
-        return comicRepository.fetchTrending(page);
+    public Single<List<Comic>> execute(ComicSearchParam comicSearchParam) {
+        return comicRepository.searchComics(comicSearchParam);
     }
-
 }

@@ -48,7 +48,7 @@ public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHo
         final Comic comic = dataSource.get(position);
         holder.setData(comic);
         holder.titleTextView.setText(comic.name);
-        holder.airDateTextView.setText(comic.airDate);
+        holder.airDateTextView.setText(comic.dateAdded);
         ImageLoader.loadImage(comic.thumbnailUrl, holder.thumbnailImageView, R.mipmap.ic_launcher);
     }
 
@@ -78,7 +78,7 @@ public final class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ViewHo
             super(itemView);
             this.comicClickListener = itemClickListener;
             titleTextView = itemView.findViewById(R.id.comic_list_title);
-            airDateTextView = itemView.findViewById(R.id.comic_list_air_date);
+            airDateTextView = itemView.findViewById(R.id.comic_list_date_added);
             thumbnailImageView = itemView.findViewById(R.id.comic_list_thumbnail);
             itemView.setOnClickListener(this);
         }
