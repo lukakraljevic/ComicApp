@@ -26,7 +26,7 @@
             tools:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/comic_list_air_date"
+            android:id="@+id/comic_list_date_added"
             android:layout_width="@dimen/dimenZero"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/listItemComponentMargin"
@@ -51,6 +51,6 @@
             app:layout_constraintBottom_toBottomOf="@id/comic_list_thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/comic_list_thumbnail"
-            app:layout_constraintTop_toBottomOf="@id/comic_list_air_date" />
+            app:layout_constraintTop_toBottomOf="@id/comic_list_date_added" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

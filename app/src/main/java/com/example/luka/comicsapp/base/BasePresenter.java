@@ -9,6 +9,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.exceptions.Exceptions;
 import io.reactivex.functions.Consumer;
 import io.reactivex.processors.BehaviorProcessor;
 import io.reactivex.processors.FlowableProcessor;
@@ -32,7 +33,7 @@ public abstract class BasePresenter<View extends BaseView, ViewState> implements
     protected final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
-    public final void setView(final View view) {
+    public void setView(View view) {
         this.view = view;
     }
 
@@ -62,24 +63,24 @@ public abstract class BasePresenter<View extends BaseView, ViewState> implements
     public void back() {
     }
 
-    protected void query(final Single<Consumer<ViewState>> single) {
+    protected void query(Single<Consumer<ViewState>> single) {
         compositeDisposable.add(single
                 .subscribeOn(backgroundScheduler)
                 .observeOn(mainThreadScheduler)
                 .subscribe(this::acceptViewState, this::handleError));
     }
 
-    private void acceptViewState(final Consumer<ViewState> consumer) {
+    private void handleError(Throwable throwable) {
+        throwable.printStackTrace();
+    }
+
+    private void acceptViewState(Consumer<ViewState> consumer) {
         try {
             consumer.accept(viewState);
             viewStateFlowable.onNext(viewState);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw Exceptions.propagate(e);
         }
-    }
-
-    private void handleError(Throwable t) {
-        t.printStackTrace();
     }
 
     @Override

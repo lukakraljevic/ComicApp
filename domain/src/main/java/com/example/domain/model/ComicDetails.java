@@ -5,6 +5,8 @@ import java.util.List;
 
 public final class ComicDetails {
 
+    public static final ComicDetails EMPTY = new ComicDetails(-1, "","","", Collections.<ComicCharacter>emptyList());
+
     public final int id;
     public final String description;
     public final String imageUrl;

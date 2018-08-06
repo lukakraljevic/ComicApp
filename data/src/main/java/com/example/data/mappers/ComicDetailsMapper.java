@@ -26,8 +26,10 @@ public final class ComicDetailsMapper {
         ComicDetailsApiModel apiModel = comicDetailsResponse.comicDetails;
 
         final List<ComicCharacter> characters = new ArrayList<>();
-        for (ComicCharacterApiModel comicCharacterApiModel : apiModel.characters) {
-            characters.add(createComicCharacter(comicCharacterApiModel));
+        if (apiModel.characters != null) {
+            for (ComicCharacterApiModel comicCharacterApiModel : apiModel.characters) {
+                characters.add(createComicCharacter(comicCharacterApiModel));
+            }
         }
 
         return new ComicDetails(apiModel.id, apiModel.description, apiModel.image.screenUrl,

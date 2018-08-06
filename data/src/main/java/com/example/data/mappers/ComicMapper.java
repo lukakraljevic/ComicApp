@@ -20,21 +20,19 @@ public final class ComicMapper {
     public List<Comic> mapComicsToModel(ComicResponse comicResponse) {
 
         if (comicResponse == null) {
-            return new ArrayList<>();
+            return null;
         }
 
         final List<Comic> comics = new ArrayList<>();
 
-        for (ComicApiModel apiModel : comicResponse.comics) {
-            comics.add(getComic(apiModel));
+        for (final ComicApiModel apiModel : comicResponse.comics) {
+            comics.add(new Comic(apiModel.id, apiModel.apiDetailUrl, apiModel.airDate, apiModel.dateAdded, apiModel.description,
+                    apiModel.comicSeries == null ? "" : apiModel.comicSeries.name,
+                    apiModel.image == null ? "" : apiModel.image.smallUrl,
+                    apiModel.image == null ? "": apiModel.image.screenUrl,
+                    apiModel.episodeNumber, apiModel.dateLastUpdated, apiModel.name));
         }
 
         return comics;
-    }
-
-    private Comic getComic(ComicApiModel apiModel) {
-        return new Comic(apiModel.id, apiModel.apiDetailUrl, apiModel.airDate, apiModel.description,
-                apiModel.comicSeries.name, apiModel.image.smallUrl, apiModel.image.screenUrl,
-                apiModel.episodeNumber, apiModel.dateLastUpdated, apiModel.name);
     }
 }
