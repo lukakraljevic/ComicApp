@@ -14,7 +14,7 @@ public final class ComicDetailsViewModelMapper {
     public ComicDetailsViewModelMapper() {
     }
 
-    public ComicDetailsViewModel mapToComicDetailsViewModel(ComicDetails comicDetails) {
+    public ComicDetailsViewModel mapToComicDetailsViewModel(final ComicDetails comicDetails) {
         return new ComicDetailsViewModel(comicDetails.description, comicDetails.imageUrl, comicDetails.name,
                 comicDetails.characters);
     }

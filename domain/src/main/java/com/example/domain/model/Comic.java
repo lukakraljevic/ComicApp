@@ -19,6 +19,9 @@ public final class Comic implements Serializable {
     public final String dateLastUpdated;
     public final String name;
 
+    public static final Comic EMPTY = new Comic(-1, "", new Date(), "", "",
+            "", "", -1, new Date(), "");
+
     private static final String NOT_AVAILABLE = "N/A";
 
     public Comic(int id, String apiDetailUrl, Date airDate, Date dateAdded, String description, String seriesName,

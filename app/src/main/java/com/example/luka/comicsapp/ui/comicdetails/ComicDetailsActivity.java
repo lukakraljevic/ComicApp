@@ -105,11 +105,11 @@ public class ComicDetailsActivity extends BaseActivity implements ComicDetailsCo
         snapHelper.attachToRecyclerView(recyclerView);
     }
 
-    public void alertErrorMessage(Throwable t) {
+    private void alertErrorMessage(Throwable t) {
         Toast.makeText(getApplicationContext(), errorText, Toast.LENGTH_SHORT).show();
     }
 
-    public void showComicDetails(ComicDetailsViewState comicDetailsViewState) {
+    private void showComicDetails(final ComicDetailsViewState comicDetailsViewState) {
         if (!comicDetailsViewState.comicDetailsViewModel.characters.isEmpty()) {
             charactersLabel.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
